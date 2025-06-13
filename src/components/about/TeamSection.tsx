@@ -43,7 +43,7 @@ export default function TeamSection() {
   );
 }
 
-function TeamMember({ name, role, image }) {
+function TeamMember({ name, role, image }:{name: string, role: string, image:string}) {
   return (
     <div className="group">
       <div className="relative w-full aspect-square mb-4 overflow-hidden rounded-lg bg-charcoal">

@@ -1,5 +1,3 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import JourneySection from "@/components/about/JourneySection";
 import ValuesSection from "@/components/about/ValuesSection";
 import AchievementsSection from "@/components/about/AchievementsSection";

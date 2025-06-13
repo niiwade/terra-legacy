@@ -21,9 +21,12 @@ interface PropertyMapProps {
 
 // Fix for Leaflet marker icons in Next.js
 const fixLeafletIcons = () => {
-  // Use type assertion to fix TypeScript error
-  const DefaultIcon = L.Icon.Default as any;
-  // @ts-ignore
+  // Use proper type assertion
+  const DefaultIcon = L.Icon.Default as unknown as {
+    prototype: { _getIconUrl?: unknown };
+    mergeOptions: (options: Record<string, string>) => void;
+  };
+  // We need to delete this internal property for Leaflet to work correctly
   delete DefaultIcon.prototype._getIconUrl;
   
   DefaultIcon.mergeOptions({

@@ -1,48 +1,134 @@
+'use client'
 import Image from 'next/image';
-import Link from 'next/link';
+import { useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 export default function HeroSection() {
+  const [priceMin, setPriceMin] = useState('0');
+  const [priceMax, setPriceMax] = useState('5,000');
+  const [activeTab, setActiveTab] = useState('All');
+
   return (
-    <section className="relative w-full flex flex-col lg:flex-row items-center justify-between py-16 md:py-24 px-6 md:px-12 overflow-hidden">
-      <div className="w-full lg:w-1/2 mb-16 lg:mb-0 z-10">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-charcoal">
-          Discover Your Dream<br />Property with Terra Legacy
-        </h1>
-        <p className="text-charcoal/80 mb-8 max-w-lg text-lg">
-          Find the perfect place to call home with our extensive collection of properties. 
-          Our experts are here to guide you every step of the way.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="/listings" className="bg-burgundy text-white px-6 py-3 rounded-md font-medium hover:bg-opacity-90 text-center transition-colors shadow-md">
-            View Listings
-          </Link>
-          <Link href="/contact" className="border border-gray-300 px-6 py-3 rounded-md font-medium hover:bg-blush hover:text-burgundy hover:border-burgundy text-center transition-all">
-            Get in Touch
-          </Link>
-        </div>
+    <section className="relative w-full min-h-[95vh] flex items-center bg-gradient-to-r from-gray-100 to-gray-200 overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <Image 
+          src="/images/modern-house.jpg" 
+          alt="Modern real estate properties" 
+          fill 
+          priority
+          className="object-cover opacity-60"
+        />
       </div>
       
-      <div className="w-full lg:w-1/2 relative h-[350px] sm:h-[400px] lg:h-[500px]">
-        <div className="absolute top-0 right-0 w-[250px] h-[250px] sm:w-[280px] sm:h-[280px] md:w-[350px] md:h-[350px] bg-gradient-to-br from-blue-400 to-burgundy rounded-md transform rotate-3 shadow-xl">
-          <div className="absolute inset-0 bg-black bg-opacity-20 backdrop-blur-sm"></div>
+      <div className="container mx-auto px-4 md:px-8 z-10 flex flex-col lg:flex-row items-center justify-between gap-12 py-16">
+        {/* Left side - Text content */}
+        <div className="w-full lg:w-1/2 text-left">
+          <h2 className="text-lg font-medium text-gray-800 mb-2">THE BEST WAY TO</h2>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
+            Find your happy
+          </h1>
+          <p className="text-gray-700 mb-8 text-lg">
+            Search properties for sale and to rent in the US
+          </p>
         </div>
-        <div className="absolute top-10 right-10 w-[250px] h-[250px] sm:w-[280px] sm:h-[280px] md:w-[350px] md:h-[350px] bg-gradient-to-br from-blush to-burgundy rounded-md transform -rotate-3 shadow-xl">
-          <div className="absolute inset-0 bg-black bg-opacity-10 backdrop-blur-sm"></div>
-        </div>
-      </div>
-      
-      <div className="absolute -bottom-1 left-0 right-0 flex justify-center gap-8 sm:gap-16 md:gap-32 py-6 md:py-8 bg-white shadow-md rounded-t-3xl">
-        <div className="text-center">
-          <p className="text-xl sm:text-2xl md:text-3xl font-bold text-burgundy">250+</p>
-          <p className="text-xs sm:text-sm text-charcoal">Properties Listed</p>
-        </div>
-        <div className="text-center">
-          <p className="text-xl sm:text-2xl md:text-3xl font-bold text-burgundy">100+</p>
-          <p className="text-xs sm:text-sm text-charcoal">Happy Customers</p>
-        </div>
-        <div className="text-center">
-          <p className="text-xl sm:text-2xl md:text-3xl font-bold text-burgundy">15+</p>
-          <p className="text-xs sm:text-sm text-charcoal">Years of Experience</p>
+        
+        {/* Right side - Search form */}
+        <div className="w-full lg:w-5/12 bg-white rounded-lg shadow-lg p-6">
+          {/* Tabs */}
+          <div className="flex border-b border-gray-200 mb-6">
+            {['All', 'For Sale', 'For Rent'].map((tab) => (
+              <button
+                key={tab}
+                className={`pb-3 px-4 text-sm font-medium ${
+                  activeTab === tab 
+                    ? 'text-black border-b-2 border-black' 
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+          
+          {/* Search form */}
+          <form className="space-y-4">
+            {/* Property Type */}
+            <div className="relative">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Property Type
+              </label>
+              <select 
+                className="w-full p-3 border border-gray-300 rounded-md appearance-none bg-white focus:outline-none focus:ring-1 focus:ring-gray-500"
+              >
+                <option>Any</option>
+                <option>House</option>
+                <option>Apartment</option>
+                <option>Condo</option>
+                <option>Villa</option>
+              </select>
+              <div className="absolute right-3 top-[38px] pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </div>
+            </div>
+            
+            {/* Location */}
+            <div className="relative">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Location
+              </label>
+              <select 
+                className="w-full p-3 border border-gray-300 rounded-md appearance-none bg-white focus:outline-none focus:ring-1 focus:ring-gray-500"
+              >
+                <option>Any Location</option>
+                <option>Texas</option>
+                <option>Florida</option>
+                <option>Delaware</option>
+                <option>Georgia</option>
+              </select>
+              <div className="absolute right-3 top-[38px] pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </div>
+            </div>
+            
+            {/* Price Range */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Price Range
+              </label>
+              <div className="flex items-center">
+                <input 
+                  type="text" 
+                  value={`$${priceMin}`} 
+                  onChange={(e) => setPriceMin(e.target.value.replace('$', ''))}
+                  className="w-1/2 p-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-gray-500"
+                />
+                <span className="px-4 py-3 bg-gray-100 text-gray-500">-</span>
+                <input 
+                  type="text" 
+                  value={`$${priceMax}`} 
+                  onChange={(e) => setPriceMax(e.target.value.replace('$', ''))}
+                  className="w-1/2 p-3 border border-gray-300 rounded-r-md focus:outline-none focus:ring-1 focus:ring-gray-500"
+                />
+              </div>
+            </div>
+            
+            {/* Advanced button */}
+            
+            
+            {/* Search button */}
+            <button 
+              type="submit"
+              className="w-full bg-gray-900 text-white p-3 rounded-md flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors"
+            >
+              <FaSearch />
+              Search
+            </button>
+          </form>
         </div>
       </div>
     </section>

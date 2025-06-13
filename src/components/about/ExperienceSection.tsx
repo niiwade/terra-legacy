@@ -9,7 +9,7 @@ export default function ExperienceSection() {
         </h2>
         
         <p className="text-gray-300 mb-12 max-w-3xl text-lg">
-          We've designed our process to be seamless and transparent, ensuring you have all the support you need at every stage of your real estate journey.
+          We have designed our process to be seamless and transparent, ensuring you have all the support you need at every stage of your real estate journey.
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -56,7 +56,7 @@ export default function ExperienceSection() {
   );
 }
 
-function ExperienceCard({ step, title, description }) {
+function ExperienceCard({ step, title, description }: {step: string, title: string, description:string}) {
   return (
     <div className="bg-charcoal bg-opacity-50 p-8 rounded-lg border border-gray-800 hover:border-burgundy transition-all duration-300">
       <div className="flex flex-col h-full">

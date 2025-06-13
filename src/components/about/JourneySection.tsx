@@ -11,7 +11,7 @@ export default function JourneySection() {
             </h1>
             <p className="text-gray-300 mb-8 text-lg">
               Terra Legacy began with a vision to transform the real estate industry through innovation, 
-              transparency, and exceptional service. Since our founding, we've grown from a small 
+              transparency, and exceptional service. Since our founding, we&apos;ve grown from a small 
               team of passionate individuals to a leading force in the market.
             </p>
             

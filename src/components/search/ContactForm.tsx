@@ -6,7 +6,7 @@ export default function ContactForm(): React.ReactElement {
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-            Let's Make it Happen
+            Let&apos;s Make it Happen
           </h2>
           <p className="text-gray-300 max-w-3xl text-lg">
             Ready to start your real estate journey? Fill out the form below and one of our experts will get in touch with you to discuss your needs and help you find the perfect property.

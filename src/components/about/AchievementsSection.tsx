@@ -9,7 +9,7 @@ export default function AchievementsSection() {
         </h2>
         
         <p className="text-gray-300 mb-12 max-w-3xl text-lg">
-          At Terra Legacy, we take pride in our accomplishments and the recognition we've received for our commitment to excellence in the real estate industry.
+          At Terra Legacy, we take pride in our accomplishments and the recognition we have received for our commitment to excellence in the real estate industry.
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -33,7 +33,7 @@ export default function AchievementsSection() {
   );
 }
 
-function AchievementCard({ title, description }) {
+function AchievementCard({ title, description }: { title: string; description: string }) {
   return (
     <div className="bg-charcoal bg-opacity-50 p-8 rounded-lg border border-gray-800 hover:border-burgundy transition-all duration-300">
       <h3 className="text-xl font-semibold text-white mb-4">{title}</h3>

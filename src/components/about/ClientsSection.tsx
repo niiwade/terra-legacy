@@ -10,7 +10,7 @@ export default function ClientsSection() {
         </h2>
         
         <p className="text-gray-300 mb-12 max-w-3xl text-lg">
-          We've had the privilege of working with a diverse range of clients, from individuals seeking their first home to major corporations establishing their headquarters.
+          We have had the privilege of working with a diverse range of clients, from individuals seeking their first home to major corporations establishing their headquarters.
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -35,7 +35,7 @@ export default function ClientsSection() {
   );
 }
 
-function ClientCard({ company, industry, logo, testimonial, author }) {
+function ClientCard({ company, industry, logo, testimonial, author }: { company: string; industry: string; logo: string; testimonial: string; author: string }) {
   return (
     <div className="bg-charcoal bg-opacity-50 p-8 rounded-lg border border-gray-800 hover:border-burgundy transition-all duration-300">
       <div className="flex items-start gap-6">

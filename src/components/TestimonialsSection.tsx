@@ -1,4 +1,3 @@
-import Image from 'next/image';
 
 export default function TestimonialsSection() {
   return (
@@ -27,7 +26,7 @@ export default function TestimonialsSection() {
               </svg>
             </div>
             <p className="text-gray-600 mb-6 italic">
-              "Terra Legacy made finding our dream home an absolute pleasure. Their team was professional, knowledgeable, and truly cared about our needs."
+              &quot;Terra Legacy made finding our dream home an absolute pleasure. Their team was professional, knowledgeable, and truly cared about our needs.&quot;
             </p>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gray-300"></div>
@@ -58,7 +57,7 @@ export default function TestimonialsSection() {
               </svg>
             </div>
             <p className="text-gray-600 mb-6 italic">
-              "Working with Terra Legacy to sell my property was seamless. Their marketing strategy and industry expertise helped me get the best possible price."
+              &quot;Working with Terra Legacy to sell my property was seamless. Their marketing strategy and industry expertise helped me get the best possible price.&quot;
             </p>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gray-300"></div>
@@ -89,7 +88,7 @@ export default function TestimonialsSection() {
               </svg>
             </div>
             <p className="text-gray-600 mb-6 italic">
-              "As a first-time buyer, I was nervous about the process, but Terra Legacy guided me through every step. I couldn't be happier with my new home!"
+              &quot;As a first-time buyer, I was nervous about the process, but Terra Legacy guided me through every step. I couldn&apos;t be happier with my new home!&quot;
             </p>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gray-300"></div>

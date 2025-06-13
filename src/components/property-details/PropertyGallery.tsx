@@ -30,11 +30,7 @@ export default function PropertyGallery({ images }: PropertyGalleryProps): React
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   
-  const openLightbox = useCallback((index: number) => {
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
-  }, []);
+  // Function to open lightbox is implemented inline where needed
   
   const closeLightbox = useCallback(() => {
     setLightboxOpen(false);

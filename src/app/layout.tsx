@@ -5,19 +5,12 @@ import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { FavoritesProvider } from '@/context/FavoritesContext';
-import dynamic from 'next/dynamic';
+import TawkToChat from "@/components/TawkToChat";
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 });
-
-// Dynamically import TawkToChat to avoid SSR issues
-const TawkToChat = dynamic(() => import('@/components/TawkToChat'), {
-  ssr: false,
-});
-
-
 
 export const metadata: Metadata = {
   title: "Terra Legacy | Find Your Dream Property",
@@ -38,7 +31,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <TawkToChat />
+          <TawkToChat /> 
         </FavoritesProvider>
       </body>
     </html>

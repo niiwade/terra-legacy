@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FilterState } from './PropertyFilter';
@@ -14,8 +14,8 @@ export default function PropertyListings({ filters }: PropertyListingsProps): Re
   useEffect(() => {
     initScrollAnimation();
   }, []);
-  // Sample property data with IDs
-  const allProperties = [
+  // Sample property data with IDs - wrapped in useMemo to prevent recreation on each render
+  const allProperties = useMemo(() => [
     {
       id: '1',
       image: '/images/properties/luxury-villa.jpg',
@@ -49,7 +49,7 @@ export default function PropertyListings({ filters }: PropertyListingsProps): Re
       bathrooms: '3.5',
       area: '3,200 sq ft'
     }
-  ];
+  ], []);
 
   // State for filtered properties
   const [filteredProperties, setFilteredProperties] = useState(allProperties);
@@ -95,7 +95,7 @@ export default function PropertyListings({ filters }: PropertyListingsProps): Re
     });
     
     setFilteredProperties(filtered);
-  }, [filters]);
+  }, [filters, allProperties]);
 
   return (
     <div>

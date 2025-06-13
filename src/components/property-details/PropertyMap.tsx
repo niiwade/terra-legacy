@@ -15,9 +15,12 @@ interface PropertyMapProps {
 
 // Fix for Leaflet marker icons in Next.js
 const fixLeafletIcons = () => {
-  // Use type assertion to fix TypeScript error
-  const DefaultIcon = L.Icon.Default as any;
-  // @ts-ignore
+  // Use proper type assertion
+  const DefaultIcon = L.Icon.Default as unknown as {
+    prototype: { _getIconUrl?: unknown };
+    mergeOptions: (options: Record<string, string>) => void;
+  };
+  // We need to delete this internal property for Leaflet to work correctly
   delete DefaultIcon.prototype._getIconUrl;
   
   DefaultIcon.mergeOptions({
@@ -31,7 +34,7 @@ export default function PropertyMap({ address, coordinates }: PropertyMapProps) 
   useEffect(() => {
     fixLeafletIcons();
     
-    // Create a custom burgundy marker icon
+    /* Create a custom burgundy marker icon - not used but kept for reference
     const customIcon = new L.Icon({
       iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
       shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -40,6 +43,7 @@ export default function PropertyMap({ address, coordinates }: PropertyMapProps) 
       popupAnchor: [1, -34],
       shadowSize: [41, 41]
     });
+    */
     
     // Apply custom styling to Leaflet elements
     const style = document.createElement('style');
