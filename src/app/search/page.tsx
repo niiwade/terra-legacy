@@ -2,16 +2,16 @@
 
 import { useState, Suspense } from 'react';
 
-import PropertyFilter, { FilterState } from "@/components/search/PropertyFilter";
 import CTASection from "@/components/CTASection";
+import MortgageCalculator from "@/components/MortgageCalculator";
 import dynamic from 'next/dynamic';
 import SearchHero from "@/components/search/SearchHero";
 
-// Dynamically import components that might use window to avoid SSR issues
-const PropertyListings = dynamic(
-  () => import('@/components/search/PropertyListings'),
-  { ssr: true } // This can be true since we're checking for window in the component
-);
+// No longer needed as we're using PropertyListingsWithFilters instead
+// const PropertyListings = dynamic(
+//   () => import('@/components/search/PropertyListings'),
+//   { ssr: true }
+// );
 
 const ContactForm = dynamic(
   () => import('@/components/search/ContactForm'),
@@ -27,8 +27,13 @@ const PropertyMap = dynamic(
 
 
 export default function SearchPage() {
-  const [activeFilters, setActiveFilters] = useState<FilterState | null>(null);
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
+  
+  // Dynamically import the SearchFilters component that uses useSearchParams
+  const SearchFilters = dynamic(() => import('@/components/search/SearchFilters'), { ssr: false });
+  
+  // We'll use a separate component to handle property listings based on URL parameters
+  const PropertyListingsWithFilters = dynamic(() => import('@/components/search/PropertyListingsWithFilters'), { ssr: false });
   
   // Sample property data with coordinates for the map
   const properties = [
@@ -64,23 +69,20 @@ export default function SearchPage() {
     }
   ];
 
-  const handleFilterChange = (filters: FilterState) => {
-    setActiveFilters(filters);
-  };
+
 
   return (
-    <div className="min-h-screen flex flex-col bg-black text-white">
-      <Suspense fallback={<div className="p-12 text-center">Loading search page...</div>}>
-        <main>
+    <div className="min-h-screen flex flex-col bg-white text-black">
+      <main>
           <SearchHero />
           
-          <section className="w-full py-16 md:py-24 px-6 md:px-12 bg-black">
+          <section className="w-full py-16 md:py-24 px-6 md:px-12 bg-white">
             <div className="max-w-7xl mx-auto">
               <div className="mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black">
                   Discover a World of Possibilities
                 </h2>
-                <p className="text-gray-300 max-w-3xl text-lg">
+                <p className="text-black max-w-3xl text-lg">
                   Our handpicked selection of premium properties offers something for everyone, from luxury urban apartments to tranquil suburban homes and everything in between.
                 </p>
               </div>
@@ -89,7 +91,7 @@ export default function SearchPage() {
                 <div className="bg-charcoal rounded-lg p-1 inline-flex">
                   <button 
                     onClick={() => setViewMode('list')} 
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'list' ? 'bg-burgundy text-white' : 'text-gray-300 hover:text-white'}`}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'list' ? 'bg-burgundy text-black' : 'text-black hover:text-black'}`}
                   >
                     <span className="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,7 +102,7 @@ export default function SearchPage() {
                   </button>
                   <button 
                     onClick={() => setViewMode('map')} 
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'map' ? 'bg-burgundy text-white' : 'text-gray-300 hover:text-white'}`}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'map' ? 'bg-burgundy text-black' : 'text-black hover:text-black'}`}
                   >
                     <span className="flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -114,11 +116,18 @@ export default function SearchPage() {
               
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div className="lg:col-span-1">
-                  <PropertyFilter onFilterChange={handleFilterChange} />
+                  <Suspense fallback={<div className="p-6 bg-charcoal bg-opacity-50 rounded-xl border border-gray-800 h-96 animate-pulse">Loading filters...</div>}>
+                    <SearchFilters />
+                  </Suspense>
+                  <div className="mt-8">
+                    <MortgageCalculator />
+                  </div>
                 </div>
                 <div className="lg:col-span-3">
                   {viewMode === 'list' ? (
-                    <PropertyListings filters={activeFilters} />
+                    <Suspense fallback={<div className="p-6 bg-charcoal bg-opacity-50 rounded-xl border border-gray-800 h-[600px] animate-pulse">Loading properties...</div>}>
+                      <PropertyListingsWithFilters />
+                    </Suspense>
                   ) : (
                     <div className="bg-charcoal bg-opacity-50 rounded-xl overflow-hidden border border-gray-800 h-[700px] reveal animate-fade-in">
                       <PropertyMap properties={properties} />
@@ -132,7 +141,6 @@ export default function SearchPage() {
           <ContactForm />
           <CTASection />
         </main>
-      </Suspense>
     </div>
   );
 }

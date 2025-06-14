@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import FavoriteButton from '@/components/common/FavoriteButton';
 import { initScrollAnimation } from '@/utils/scrollAnimation';
 
 interface PropertyGalleryProps {
@@ -15,17 +14,7 @@ export default function PropertyGallery({ images }: PropertyGalleryProps): React
     initScrollAnimation();
   }, []);
   
-  // Mock property data for favorite button
-  const propertyData = {
-    id: '1', // This would normally come from props
-    title: 'Seaside Serenity Villa',
-    location: 'Palm Beach, Florida',
-    price: '$2,950,000',
-    image: images[0],
-    bedrooms: '5',
-    bathrooms: '4',
-    area: '4,200 sq ft'
-  };
+  
   const [activeImage, setActiveImage] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -62,10 +51,7 @@ export default function PropertyGallery({ images }: PropertyGalleryProps): React
               priority
             />
             
-            {/* Favorite button */}
-            <div className="absolute top-4 right-4 z-10">
-              <FavoriteButton property={propertyData} size="lg" showText={true} />
-            </div>
+           
             
             {/* View gallery button */}
             <button 

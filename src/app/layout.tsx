@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import './globals.css';
 import '@/styles/animations.css';
+import 'aos/dist/aos.css';
 import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { FavoritesProvider } from '@/context/FavoritesContext';
 import TawkToChat from "@/components/TawkToChat";
+import AOSInitializer from '@/components/AOSInitializer';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,14 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <FavoritesProvider>
-          <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
-          <TawkToChat /> 
-        </FavoritesProvider>
+        <AOSInitializer />
+        <Header />
+        <main className="min-h-screen">
+          {children}
+        </main>
+        <Footer />
+        <TawkToChat />
       </body>
     </html>
   )

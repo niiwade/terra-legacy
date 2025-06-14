@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 interface FilterProps {
-  onFilterChange: (filters: FilterState) => void;
   initialFilters?: Partial<FilterState>;
 }
 
@@ -26,9 +25,10 @@ const defaultFilters: FilterState = {
   status: 'any'
 };
 
-export default function PropertyFilter({ onFilterChange, initialFilters = {} }: FilterProps): React.ReactElement {
+export default function PropertyFilter({ initialFilters = {} }: FilterProps): React.ReactElement {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
   
   // Merge default filters with any initial filters passed in
   const [filters, setFilters] = useState<FilterState>({
@@ -71,10 +71,10 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
   const updateFilters = (newFilters: Partial<FilterState>) => {
     const updatedFilters = { ...filters, ...newFilters };
     setFilters(updatedFilters);
-    onFilterChange(updatedFilters);
     
     // Update URL with filter parameters
-    const params = new URLSearchParams(searchParams.toString());
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams.toString());
     
     // Add each filter to the URL parameters
     if (updatedFilters.priceRange[0] > 0) params.set('minPrice', updatedFilters.priceRange[0].toString());
@@ -99,13 +99,15 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
     else params.delete('amenities');
     
     // Update the URL without refreshing the page
-    router.push(`?${params.toString()}`, { scroll: false });
+      router.push(`?${params.toString()}`, { scroll: false });
+    });
   };
 
   const resetFilters = () => {
     setFilters(defaultFilters);
-    onFilterChange(defaultFilters);
-    router.push('', { scroll: false });
+    startTransition(() => {
+      router.push('', { scroll: false });
+    });
   };
 
   const formatPrice = (price: number) => {
@@ -122,7 +124,7 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
       
       {/* Price Range */}
       <div className="mb-6">
-        <label className="block text-gray-300 mb-2">Price Range</label>
+        <label className="block text-black mb-2">Price Range</label>
         <div className="flex items-center justify-between gap-4">
           <div className="w-1/2">
             <input
@@ -135,7 +137,7 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
               placeholder="Min"
             />
           </div>
-          <span className="text-gray-400">to</span>
+          <span className="text-black">to</span>
           <div className="w-1/2">
             <input
               type="number"
@@ -147,7 +149,7 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
             />
           </div>
         </div>
-        <div className="flex justify-between mt-2 text-sm text-gray-400">
+        <div className="flex justify-between mt-2 text-sm text-black">
           <span>{formatPrice(filters.priceRange[0])}</span>
           <span>{formatPrice(filters.priceRange[1])}</span>
         </div>
@@ -155,7 +157,7 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
       
       {/* Bedrooms */}
       <div className="mb-6">
-        <label htmlFor="bedrooms" className="block text-gray-300 mb-2">Bedrooms</label>
+        <label htmlFor="bedrooms" className="block text-black mb-2">Bedrooms</label>
         <select
           id="bedrooms"
           value={filters.bedrooms}
@@ -173,7 +175,7 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
       
       {/* Bathrooms */}
       <div className="mb-6">
-        <label htmlFor="bathrooms" className="block text-gray-300 mb-2">Bathrooms</label>
+        <label htmlFor="bathrooms" className="block text-black mb-2">Bathrooms</label>
         <select
           id="bathrooms"
           value={filters.bathrooms}
@@ -192,7 +194,7 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
       
       {/* Property Type */}
       <div className="mb-6">
-        <label htmlFor="propertyType" className="block text-gray-300 mb-2">Property Type</label>
+        <label htmlFor="propertyType" className="block text-black mb-2">Property Type</label>
         <select
           id="propertyType"
           value={filters.propertyType}
@@ -211,7 +213,7 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
       
       {/* Status */}
       <div className="mb-6">
-        <label htmlFor="status" className="block text-gray-300 mb-2">Status</label>
+        <label htmlFor="status" className="block text-black mb-2">Status</label>
         <select
           id="status"
           value={filters.status}
@@ -228,7 +230,7 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
       
       {/* Amenities */}
       <div className="mb-6">
-        <label className="block text-gray-300 mb-2">Amenities</label>
+        <label className="block text-black mb-2">Amenities</label>
         <div className="grid grid-cols-2 gap-2">
           {['Pool', 'Gym', 'Garden', 'Balcony', 'Parking', 'Elevator', 'Security', 'Air Conditioning'].map(amenity => (
             <div key={amenity} className="flex items-center">
@@ -239,7 +241,7 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
                 onChange={() => handleAmenityToggle(amenity)}
                 className="w-4 h-4 bg-charcoal border-gray-700 rounded text-burgundy focus:ring-burgundy"
               />
-              <label htmlFor={`amenity-${amenity}`} className="ml-2 text-sm text-gray-300">
+              <label htmlFor={`amenity-${amenity}`} className="ml-2 text-sm text-black">
                 {amenity}
               </label>
             </div>
@@ -251,15 +253,17 @@ export default function PropertyFilter({ onFilterChange, initialFilters = {} }: 
       <div className="flex gap-4">
         <button
           onClick={resetFilters}
-          className="w-1/2 py-2 px-4 border border-gray-700 text-gray-300 rounded-md hover:bg-gray-800 transition-colors"
+          disabled={isPending}
+          className="w-1/2 py-2 px-4 border border-gray-700 text-black rounded-md hover:bg-gray-800 transition-colors disabled:opacity-50"
         >
           Reset
         </button>
         <button
-          onClick={() => onFilterChange(filters)}
-          className="w-1/2 py-2 px-4 bg-burgundy text-white rounded-md hover:bg-opacity-90 transition-colors"
+          onClick={() => updateFilters(filters)}
+          disabled={isPending}
+          className="w-1/2 py-2 px-4 bg-burgundy text-white rounded-md hover:bg-opacity-90 transition-colors disabled:opacity-50"
         >
-          Apply Filters
+          {isPending ? 'Applying...' : 'Apply Filters'}
         </button>
       </div>
     </div>

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FilterState } from './PropertyFilter';
-import FavoriteButton from '@/components/common/FavoriteButton';
 import { initScrollAnimation } from '@/utils/scrollAnimation';
 
 interface PropertyListingsProps {
@@ -181,12 +180,7 @@ function PropertyCard({ image, title, location, description, price, bedrooms, ba
         <div className="absolute top-4 left-4 bg-burgundy text-white text-xs font-medium px-2 py-1 rounded">
           Featured
         </div>
-        <div className="absolute top-4 right-4">
-          <FavoriteButton 
-            property={{ id, title, location, price, image, bedrooms, bathrooms, area }} 
-            size="md" 
-          />
-        </div>
+       
       </div>
       
       <div className="p-6">

@@ -1,5 +1,5 @@
 import React from 'react';
-import FavoriteButton from '@/components/common/FavoriteButton';
+
 
 interface PropertyDetail {
   label: string;
@@ -29,19 +29,9 @@ export default function PropertyInfo({
   area,
   description,
   details,
-  id = '1' // Default ID if not provided
+
 }: PropertyInfoProps): React.ReactElement {
-  // Property data for favorite button
-  const propertyData = {
-    id,
-    title,
-    location,
-    price,
-    image: '', // This would normally be passed from parent
-    bedrooms,
-    bathrooms,
-    area
-  };
+ 
   return (
     <section className="mb-12 reveal animate-fade-in">
       <div className="mb-8">
@@ -50,9 +40,7 @@ export default function PropertyInfo({
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">{title}</h1>
             <h2 className="text-xl md:text-2xl text-burgundy mb-4">{subtitle}</h2>
           </div>
-          <div className="mt-2">
-            <FavoriteButton property={propertyData} size="lg" showText={true} />
-          </div>
+       
         </div>
         
         <div className="flex items-center text-gray-300 mb-4">

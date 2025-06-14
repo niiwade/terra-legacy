@@ -74,6 +74,18 @@
   }
 }
 
+@keyframes pulseSlow {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes float {
   0% {
     transform: translateY(0px);
@@ -109,6 +121,10 @@
 
 .animate-pulse {
   animation: pulse 2s infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 3s ease-in-out infinite;
 }
 
 .animate-float {

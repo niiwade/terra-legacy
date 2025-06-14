@@ -1,7 +1,8 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import AOS from 'aos';
 
 interface FAQItemProps {
   question: string;
@@ -12,7 +13,7 @@ function FAQItem({ question, answer }: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
-    <div className="border-b border-gray-200 py-4">
+    <div className="border-b border-gray-200 py-4" data-aos="fade-up" data-aos-delay={100}>
       <button 
         className="flex w-full justify-between items-center text-left"
         onClick={() => setIsOpen(!isOpen)}
@@ -37,6 +38,10 @@ function FAQItem({ question, answer }: FAQItemProps) {
 }
 
 export default function FAQSection() {
+  // Initialize AOS when component mounts
+  useEffect(() => {
+    AOS.init();
+  }, []);
   const faqs = [
     {
       question: "How do I search for properties on Terra Legacy?",
@@ -64,12 +69,12 @@ export default function FAQSection() {
           ))}
         </div>
         
-        <div className="mt-8 text-center">
+        {/* <div className="mt-8 text-center">
           <p className="text-gray-600 mb-4">Still have questions?</p>
           <a href="/contact" className="text-burgundy font-medium hover:underline">
             Contact our support team →
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   );

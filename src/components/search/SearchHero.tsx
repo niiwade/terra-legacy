@@ -2,13 +2,13 @@ import React from 'react';
 
 export default function SearchHero(): React.ReactElement {
   return (
-    <section className="w-full py-16 md:py-24 px-6 md:px-12 bg-black">
+    <section className="w-full py-16 md:py-24 px-6 md:px-12 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-black">
             Find Your Dream Property
           </h1>
-          <p className="text-gray-300 max-w-3xl text-lg">
+          <p className="text-black max-w-3xl text-lg">
             Discover your perfect home from our extensive collection of premium properties. Our experts are ready to help you find the property that meets all your requirements.
           </p>
         </div>
@@ -19,10 +19,10 @@ export default function SearchHero(): React.ReactElement {
               <input 
                 type="text" 
                 placeholder="Search for a Property" 
-                className="w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white focus:outline-none focus:border-burgundy"
+                className="w-full px-4 py-3 bg-white border border-gray-700 rounded-lg text-black focus:outline-none focus:border-burgundy"
               />
             </div>
-            <button className="bg-burgundy hover:bg-opacity-90 text-white px-6 py-3 rounded-lg transition-colors">
+            <button className="bg-burgundy hover:bg-opacity-90 text-black px-6 py-3 rounded-lg transition-colors">
               Find Properties
             </button>
           </div>
@@ -47,7 +47,7 @@ interface FilterButtonProps {
 
 function FilterButton({ icon, label }: FilterButtonProps): React.ReactElement {
   return (
-    <button className="flex items-center gap-2 text-gray-300 hover:text-burgundy transition-colors">
+    <button className="flex items-center gap-2 text-black hover:text-burgundy transition-colors">
       <div className="text-burgundy">
         {icon}
       </div>

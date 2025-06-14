@@ -9,25 +9,35 @@ export default function HeroSection() {
   const [activeTab, setActiveTab] = useState('All');
 
   return (
-    <section className="relative w-full min-h-[95vh] flex items-center bg-gradient-to-r from-gray-100 to-gray-200 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <Image 
-          src="/images/modern-house.jpg" 
-          alt="Modern real estate properties" 
-          fill 
-          priority
-          className="object-cover opacity-60"
-        />
+    <section className="relative w-full min-h-[95vh] flex items-center overflow-hidden">
+      <div className="absolute inset-0 z-0 bg-black/40">
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/videos/herobg.mp4" type="video/mp4" />
+          {/* Fallback image if video fails to load */}
+          <Image 
+            src="/images/modern-house.jpg" 
+            alt="Modern real estate properties" 
+            fill 
+            priority
+            className="object-cover"
+          />
+        </video>
       </div>
       
       <div className="container mx-auto px-4 md:px-8 z-10 flex flex-col lg:flex-row items-center justify-between gap-12 py-16">
         {/* Left side - Text content */}
         <div className="w-full lg:w-1/2 text-left">
-          <h2 className="text-lg font-medium text-gray-800 mb-2">THE BEST WAY TO</h2>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
-            Find your happy
+          <h2 className="text-2xl font-medium text-white mb-2">THE BEST WAY TO</h2>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+            Find your properties
           </h1>
-          <p className="text-gray-700 mb-8 text-lg">
+          <p className="text-white mb-8 text-2xl">
             Search properties for sale and to rent in the US
           </p>
         </div>
