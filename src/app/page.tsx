@@ -19,14 +19,15 @@ export default function Home() {
         <div data-aos="fade-up" data-aos-delay="100">
           <FeaturesSection />
         </div>
+        <div data-aos="fade-up" data-aos-delay="100">
+          <RecentArticlesSection />
+        </div>
         
         <div data-aos="fade-up" data-aos-delay="100">
           <TestimonialsSection />
         </div>
         
-        <div data-aos="fade-up" data-aos-delay="100">
-          <RecentArticlesSection />
-        </div>
+       
         
         <div data-aos="fade-up" data-aos-delay="100">
           <FAQSection />

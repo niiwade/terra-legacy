@@ -15,19 +15,19 @@ const popularPosts: PopularPost[] = [
   {
     id: 1,
     title: 'The Impact of Technology on the Workplace',
-    image: '/images/blog/beach.jpg',
+    image: '/images/blog/1.jpg',
     date: 'August 20, 2022'
   },
   {
     id: 2,
     title: 'How to Stage Your Home for a Quick Sale',
-    image: '/images/blog/venice.jpg',
+    image: '/images/blog/2.jpg',
     date: 'August 15, 2022'
   },
   {
     id: 3,
     title: 'Investment Strategies for First-Time Buyers',
-    image: '/images/blog/car-orange.jpg',
+    image: '/images/blog/3.jpg',
     date: 'August 10, 2022'
   }
 ];

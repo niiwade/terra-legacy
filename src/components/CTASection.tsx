@@ -9,7 +9,7 @@ export default function CTASection() {
     AOS.init();
   }, []);
   return (
-    <section className="w-full py-12 px-6 md:px-12 bg-burgundy text-white transition-all duration-500" data-aos="fade-up">
+    <section className="w-full py-12 px-6 md:px-12 bg-white text-black transition-all duration-500" data-aos="fade-up">
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-4" data-aos="fade" data-aos-delay="200">Start Your Real Estate Journey Today</h2>
         <p className="mb-8 max-w-2xl mx-auto">

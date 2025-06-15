@@ -42,6 +42,11 @@ export default function SearchPage() {
       title: 'Seaside Serenity Villa',
       location: 'Palm Beach, Florida',
       price: '$2,950,000',
+      image: '/images/properties/15.jpg',
+      description: 'Luxurious 5-bedroom villa with panoramic ocean views, infinity pool, and private beach access.',
+      bedrooms: '5',
+      bathrooms: '4',
+      area: '4,200 sq ft',
       coordinates: {
         lat: 26.7056,
         lng: -80.0364
@@ -52,6 +57,11 @@ export default function SearchPage() {
       title: 'Metropolitan Heights',
       location: 'Downtown, New York City',
       price: '$1,850,000',
+      image: '/images/properties/2.jpg',
+      description: 'Sleek 3-bedroom apartment with floor-to-ceiling windows, modern amenities, and stunning city views.',
+      bedrooms: '3',
+      bathrooms: '2',
+      area: '1,800 sq ft',
       coordinates: {
         lat: 40.7128,
         lng: -74.0060
@@ -62,6 +72,11 @@ export default function SearchPage() {
       title: 'Azure Horizon Penthouse',
       location: 'Marina District, San Francisco',
       price: '$3,750,000',
+      image: '/images/properties/3.jpg',
+      description: 'Exclusive penthouse featuring panoramic bay views, private elevator, and luxury finishes throughout.',
+      bedrooms: '4',
+      bathrooms: '3.5',
+      area: '3,200 sq ft',
       coordinates: {
         lat: 37.8199,
         lng: -122.4783

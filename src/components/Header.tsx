@@ -20,10 +20,12 @@ export default function Header() {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-8">
         <Link href="/" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Home</Link>
-        <Link href="/search" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Properties</Link>
         <Link href="/blog" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Blog</Link>
+        <Link href="/store" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Store</Link>
+        <Link href="/courses" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Courses</Link>
         <Link href="/about" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">About Us</Link>
         <Link href="/contact" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Contact</Link>
+        {/* <Link href="/search" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Properties</Link> */}
       </nav>
       
       <div className="flex items-center gap-4">
@@ -52,19 +54,33 @@ export default function Header() {
             >
               Home
             </Link>
-            <Link 
+            {/* <Link 
               href="/search" 
               className="font-medium text-charcoal hover:text-burgundy transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Properties
-            </Link>
+            </Link> */}
             <Link 
               href="/blog" 
               className="font-medium text-charcoal hover:text-burgundy transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Blog
+            </Link>
+            <Link 
+              href="/store" 
+              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Store
+            </Link>
+            <Link 
+              href="/courses" 
+              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Courses
             </Link>
             <Link 
               href="/about" 

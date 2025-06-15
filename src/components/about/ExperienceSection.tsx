@@ -2,13 +2,13 @@ import React from 'react';
 
 export default function ExperienceSection() {
   return (
-    <section className="w-full py-16 md:py-24 px-6 md:px-12 bg-black">
+    <section className="w-full py-16 md:py-24 px-6 md:px-12 bg-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
           Navigating the Terra Legacy Experience
         </h2>
         
-        <p className="text-gray-300 mb-12 max-w-3xl text-lg">
+        <p className="text-black mb-12 max-w-3xl text-lg">
           We have designed our process to be seamless and transparent, ensuring you have all the support you need at every stage of your real estate journey.
         </p>
         
@@ -60,9 +60,9 @@ function ExperienceCard({ step, title, description }: {step: string, title: stri
   return (
     <div className="bg-charcoal bg-opacity-50 p-8 rounded-lg border border-gray-800 hover:border-burgundy transition-all duration-300">
       <div className="flex flex-col h-full">
-        <span className="text-burgundy text-sm font-medium mb-2">{step}</span>
+        <span className="text-black text-sm font-medium mb-2">{step}</span>
         <h3 className="text-xl font-semibold text-white mb-4">{title}</h3>
-        <p className="text-gray-400 flex-grow">{description}</p>
+        <p className="text-black flex-grow">{description}</p>
       </div>
     </div>
   );

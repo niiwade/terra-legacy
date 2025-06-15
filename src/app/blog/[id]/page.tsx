@@ -27,7 +27,7 @@ const blogPosts: BlogPost[] = [
     id: 1,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/beach.jpg',
+    image: '/images/blog/1.jpg',
     date: 'August 20, 2022',
     content: `
       <p>The real estate industry has undergone significant transformation in recent years, largely due to technological advancements. From virtual tours to blockchain transactions, technology is reshaping how properties are bought, sold, and managed.</p>
@@ -46,7 +46,7 @@ const blogPosts: BlogPost[] = [
     `,
     author: {
       name: 'Randy Wilson',
-      avatar: '/images/avatars/avatar1.jpg',
+      avatar: '/images/avatars/1.jpg',
       bio: 'Randy is a real estate technology specialist with over 15 years of experience in the industry.'
     }
   },
@@ -54,7 +54,7 @@ const blogPosts: BlogPost[] = [
     id: 2,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/venice.jpg',
+    image: '/images/blog/2.jpg',
     date: 'August 20, 2022',
     content: `
       <p>The real estate industry has undergone significant transformation in recent years, largely due to technological advancements. From virtual tours to blockchain transactions, technology is reshaping how properties are bought, sold, and managed.</p>
@@ -73,7 +73,7 @@ const blogPosts: BlogPost[] = [
     `,
     author: {
       name: 'Jason Friedman',
-      avatar: '/images/avatars/avatar2.jpg',
+      avatar: '/images/avatars/2.jpg',
       bio: 'Jason is a real estate technology specialist with over 15 years of experience in the industry.'
     }
   },
@@ -81,7 +81,7 @@ const blogPosts: BlogPost[] = [
     id: 3,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/car-orange.jpg',
+    image: '/images/blog/3.jpg',
     date: 'August 20, 2022',
     content: `
       <p>The real estate industry has undergone significant transformation in recent years, largely due to technological advancements. From virtual tours to blockchain transactions, technology is reshaping how properties are bought, sold, and managed.</p>
@@ -100,7 +100,7 @@ const blogPosts: BlogPost[] = [
     `,
     author: {
       name: 'Elizabeth Smith',
-      avatar: '/images/avatars/avatar3.jpg',
+      avatar: '/images/avatars/3.jpg',
       bio: 'Elizabeth is a real estate technology specialist with over 15 years of experience in the industry.'
     }
   },

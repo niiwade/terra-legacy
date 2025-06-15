@@ -25,99 +25,99 @@ const blogPosts: BlogPost[] = [
     id: 1,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/beach.jpg',
+    image: '/images/blog/1.jpg',
     date: 'August 20, 2022',
     author: {
       name: 'Randy Wilson',
-      avatar: '/images/avatars/avatar1.jpg'
+      avatar: '/images/avatars/1.jpg'
     }
   },
   {
     id: 2,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/venice.jpg',
+    image: '/images/blog/2.jpg',
     date: 'August 20, 2022',
     author: {
       name: 'Jason Friedman',
-      avatar: '/images/avatars/avatar2.jpg'
+      avatar: '/images/avatars/2.jpg'
     }
   },
   {
     id: 3,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/car-orange.jpg',
+    image: '/images/blog/3.jpg',
     date: 'August 20, 2022',
     author: {
       name: 'Elizabeth Smith',
-      avatar: '/images/avatars/avatar3.jpg'
+      avatar: '/images/avatars/3.jpg'
     }
   },
   {
     id: 4,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/cottage.jpg',
+    image: '/images/blog/4.jpg',
     date: 'August 20, 2022',
     author: {
       name: 'Alex Smith',
-      avatar: '/images/avatars/avatar4.jpg'
+      avatar: '/images/avatars/4.jpg'
     }
   },
   {
     id: 5,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/rocks.jpg',
+    image: '/images/blog/1.jpg',
     date: 'August 20, 2022',
     author: {
       name: 'Michael Davis',
-      avatar: '/images/avatars/avatar5.jpg'
+      avatar: '/images/avatars/1.jpg'
     }
   },
   {
     id: 6,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/car-blue.jpg',
+    image: '/images/blog/2.jpg',
     date: 'August 20, 2022',
     author: {
       name: 'John Smith',
-      avatar: '/images/avatars/avatar6.jpg'
+      avatar: '/images/avatars/2.jpg'
     }
   },
   {
     id: 7,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/iphone.jpg',
+    image: '/images/blog/3.jpg',
     date: 'August 20, 2022',
     author: {
       name: 'Jason Friedman',
-      avatar: '/images/avatars/avatar2.jpg'
+      avatar: '/images/avatars/3.jpg'
     }
   },
   {
     id: 8,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/island.jpg',
+    image: '/images/blog/4.jpg',
     date: 'August 20, 2022',
     author: {
       name: 'Elizabeth Smith',
-      avatar: '/images/avatars/avatar3.jpg'
+      avatar: '/images/avatars/4.jpg'
     }
   },
   {
     id: 9,
     title: 'The Impact of Technology on the Workplace: How Technology is Changing',
     category: 'Technology',
-    image: '/images/blog/watch.jpg',
+    image: '/images/blog/1.jpg',
     date: 'August 20, 2022',
     author: {
       name: 'John Smith',
-      avatar: '/images/avatars/avatar6.jpg'
+      avatar: '/images/avatars/1.jpg'
     }
   }
 ];

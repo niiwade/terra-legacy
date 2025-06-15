@@ -3,39 +3,39 @@ import React from 'react';
 
 export default function TeamSection() {
   return (
-    <section className="w-full py-16 md:py-24 px-6 md:px-12 bg-black">
+    <section className="w-full py-16 md:py-24 px-6 md:px-12 bg-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
           Meet the Terra Legacy Team
         </h2>
         
-        <p className="text-gray-300 mb-12 max-w-3xl text-lg">
+        <p className="text-black mb-12 max-w-3xl text-lg">
           Our team of dedicated professionals brings together decades of experience in real estate, architecture, finance, and customer service.
         </p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <TeamMember 
-            name="Alex Parker"
+            name="Nikohl Ray"
             role="CEO & Founder"
-            image="/images/team/team-1.jpg"
+            image="/images/avatars/2.jpg"
           />
           
           <TeamMember 
             name="Sarah Johnson"
             role="Head of Sales"
-            image="/images/team/team-2.jpg"
+            image="/images/avatars/3.jpg"
           />
           
           <TeamMember 
             name="Michael Brown"
             role="Lead Architect"
-            image="/images/team/team-3.jpg"
+            image="/images/avatars/4.jpg"
           />
           
           <TeamMember 
             name="Emily Chen"
             role="Client Relations"
-            image="/images/team/team-4.jpg"
+            image="/images/avatars/1.jpg"
           />
         </div>
       </div>

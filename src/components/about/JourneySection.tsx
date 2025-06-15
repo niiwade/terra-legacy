@@ -40,7 +40,7 @@ export default function JourneySection() {
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="relative w-48 h-48 md:w-64 md:h-64">
                       <Image
-                        src="/images/modern-house.jpg"
+                        src="/images/properties/1.jpg"
                         alt="Modern House"
                         fill
                         className="object-cover rounded-lg"
@@ -53,7 +53,7 @@ export default function JourneySection() {
                   <div className="relative w-full h-full p-4">
                     <div className="w-full h-full relative">
                       <Image
-                        src="/images/hand-house.jpg"
+                        src="/images/properties/2.jpg"
                         alt="Hand holding house model"
                         fill
                         className="object-cover rounded-full"
