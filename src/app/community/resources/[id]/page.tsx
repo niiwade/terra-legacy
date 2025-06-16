@@ -340,14 +340,9 @@ const RESOURCES = {
   }
 };
 
-type ResourcePageProps = {
-  params: {
-    id: string;
-  };
-};
-
-export default function ResourcePage({ params }: ResourcePageProps) {
-  const { id } = params;
+export default function ResourcePage({ params }: { params: { id: string } }) {
+  // Access the id directly from params
+  const id = params.id;
   const resource = RESOURCES[id as keyof typeof RESOURCES];
   
   useEffect(() => {
