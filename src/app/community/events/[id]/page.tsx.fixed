@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
 import EventDetailsSection from '@/components/community/EventDetailsSection';
 
 // Define the type for event data
@@ -115,17 +114,10 @@ const EVENTS = {
   }
 };
 
-// Define the props type that Next.js 15 expects based on the error message
-interface PageProps {
-  params: Promise<{ id: string }>;
-  searchParams?: Promise<Record<string, string | string[] | undefined>>;
-}
-
-// Use the standard Next.js 15 App Router pattern for page components
-export default async function Page({ params }: PageProps) {
-  // Extract the id from params (resolving the Promise)
-  const resolvedParams = await params;
-  const id = resolvedParams.id;
+// Event page component that receives params with id
+export default function EventPage({ params }: { params: { id: string } }) {
+  // Extract the id from params
+  const id = params.id;
   
   // Find the event by id
   const event = EVENTS[id as keyof typeof EVENTS] as Event | undefined;
@@ -141,26 +133,4 @@ export default async function Page({ params }: PageProps) {
       <EventDetailsSection event={event} />
     </div>
   );
-}
-
-// Generate metadata for the page
-export async function generateMetadata({ 
-  params
-}: PageProps): Promise<Metadata> {
-  // Resolve the params Promise
-  const resolvedParams = await params;
-  const id = resolvedParams.id;
-  
-  const event = EVENTS[id as keyof typeof EVENTS] as Event | undefined;
-  
-  if (!event) {
-    return {
-      title: 'Event Not Found',
-    };
-  }
-  
-  return {
-    title: event.title,
-    description: event.description,
-  };
 }

@@ -115,27 +115,20 @@ const EVENTS = {
   }
 };
 
-// Define the props type that Next.js 15 expects based on the error message
-interface PageProps {
-  params: Promise<{ id: string }>;
-  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+// Define the params type
+type EventParams = {
+  id: string;
 }
 
-// Use the standard Next.js 15 App Router pattern for page components
-export default async function Page({ params }: PageProps) {
-  // Extract the id from params (resolving the Promise)
-  const resolvedParams = await params;
-  const id = resolvedParams.id;
-  
-  // Find the event by id
+// Main page component
+export default function EventPage({ params }: { params: EventParams }) {
+  const id = params.id;
   const event = EVENTS[id as keyof typeof EVENTS] as Event | undefined;
   
-  // If event not found, show 404 page
   if (!event) {
     notFound();
   }
   
-  // Render the event details
   return (
     <div className="min-h-screen bg-gray-50">
       <EventDetailsSection event={event} />
@@ -145,12 +138,11 @@ export default async function Page({ params }: PageProps) {
 
 // Generate metadata for the page
 export async function generateMetadata({ 
-  params
-}: PageProps): Promise<Metadata> {
-  // Resolve the params Promise
-  const resolvedParams = await params;
-  const id = resolvedParams.id;
-  
+  params 
+}: { 
+  params: EventParams 
+}): Promise<Metadata> {
+  const id = params.id;
   const event = EVENTS[id as keyof typeof EVENTS] as Event | undefined;
   
   if (!event) {

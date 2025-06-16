@@ -1,9 +1,5 @@
-'use client';
-
-import { useEffect } from 'react';
 import Link from 'next/link';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { Metadata } from 'next';
 
 // This type is used for the topics array in the CATEGORIES object
 interface ForumTopic {
@@ -15,7 +11,6 @@ interface ForumTopic {
   lastActivity: string;
   isSticky: boolean;
 }
-
 
 // Sample category data
 interface CategoryData {
@@ -237,17 +232,40 @@ const CATEGORIES: Record<string, CategoryData> = {
   },
 };
 
-export default function CategoryPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+
+
+
+
+// Define the props type that Next.js 15 expects based on the error message
+interface PageProps {
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}
+
+// Generate metadata for the page
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
   const category = CATEGORIES[id as keyof typeof CATEGORIES];
   
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: 'ease-in-out',
-    });
-  }, []);
+  if (!category) {
+    return {
+      title: 'Category Not Found',
+      description: 'The forum category you are looking for does not exist.'
+    };
+  }
+  
+  return {
+    title: `${category.name} - Forums | Terra Legacy`,
+    description: category.description
+  };
+}
+
+export default async function Page({ params }: PageProps) {
+  // Resolve the params Promise
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
+  const category = CATEGORIES[id as keyof typeof CATEGORIES];
 
   if (!category) {
     return (
@@ -278,12 +296,12 @@ export default function CategoryPage({ params }: { params: { id: string } }) {
             Back to Forums
           </Link>
           
-          <h1 className="text-3xl md:text-4xl font-bold mb-2" data-aos="fade-up">{category.name}</h1>
-          <p className="text-gray-600" data-aos="fade-up" data-aos-delay="100">{category.description}</p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{category.name}</h1>
+          <p className="text-gray-600">{category.description}</p>
         </div>
         
         {/* Topics List */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8" data-aos="fade-up" data-aos-delay="200">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
           <div className="flex justify-between items-center bg-gray-100 px-6 py-3">
             <h2 className="text-lg font-medium text-gray-900">Topics</h2>
             <Link 
@@ -338,7 +356,7 @@ export default function CategoryPage({ params }: { params: { id: string } }) {
         </div>
         
         {/* Forum Rules */}
-        <div className="bg-white rounded-lg shadow-md p-6" data-aos="fade-up" data-aos-delay="300">
+        <div className="bg-white rounded-lg shadow-md p-6">
           <h3 className="text-lg font-medium text-gray-900 mb-4">Forum Rules</h3>
           <ul className="list-disc pl-5 text-gray-600 space-y-2">
             <li>Be respectful and courteous to other members.</li>
