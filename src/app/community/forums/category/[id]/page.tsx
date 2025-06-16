@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-type ForumTopic = {
+// This type is used for the topics array in the CATEGORIES object
+interface ForumTopic {
   id: string;
   title: string;
   author: string;
@@ -13,16 +14,17 @@ type ForumTopic = {
   views: number;
   lastActivity: string;
   isSticky: boolean;
-};
+}
 
-type CategoryPageProps = {
-  params: {
-    id: string;
-  };
-};
 
 // Sample category data
-const CATEGORIES = {
+interface CategoryData {
+  name: string;
+  description: string;
+  topics: ForumTopic[];
+}
+
+const CATEGORIES: Record<string, CategoryData> = {
   '1': {
     name: 'Real Estate Market',
     description: 'Discussions about current market trends, forecasts, and analysis.',
@@ -235,7 +237,7 @@ const CATEGORIES = {
   },
 };
 
-export default function CategoryPage({ params }: CategoryPageProps) {
+export default function CategoryPage({ params }: { params: { id: string } }) {
   const { id } = params;
   const category = CATEGORIES[id as keyof typeof CATEGORIES];
   

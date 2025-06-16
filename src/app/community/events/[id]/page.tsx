@@ -99,14 +99,9 @@ const EVENTS = {
   }
 };
 
-type EventPageProps = {
-  params: {
-    id: string;
-  };
-};
-
-export default function EventPage({ params }: EventPageProps) {
-  const { id } = params;
+export default function EventPage({ params }: { params: { id: string } }) {
+  // Access the id directly from params
+  const id = params.id;
   const event = EVENTS[id as keyof typeof EVENTS];
   
   useEffect(() => {

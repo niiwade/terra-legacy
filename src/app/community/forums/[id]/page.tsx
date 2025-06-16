@@ -5,14 +5,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ForumDetailsSection from '@/components/community/ForumDetailsSection';
 
-type ForumTopicPageProps = {
-  params: {
-    id: string;
-  };
-};
-
-export default function ForumTopicPage({ params }: ForumTopicPageProps) {
-  const { id } = params;
+export default function ForumTopicPage() {
+  // Access the id directly from params - will be used when implementing forum data
+  // const id = params.id;
   
   useEffect(() => {
     AOS.init({
