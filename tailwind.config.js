@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        montserrat: ['var(--font-montserrat)', 'Montserrat', 'sans-serif'],
+        manrope: ['var(--font-manrope)', 'Manrope', 'sans-serif'],
+      },
       colors: {
         // Custom color palette based on provided colors
         burgundy: '#C42B59', // Rich burgundy

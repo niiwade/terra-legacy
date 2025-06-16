@@ -199,6 +199,7 @@ export default function FeaturesSection() {
             <h2 className="text-3xl md:text-4xl font-bold mb-2 text-black">Explore Our Store</h2>
             <p className="text-gray-600">Educational resources to help you succeed in land investment</p>
           </div>
+          
           <Link href="/store" className="text-burgundy font-medium hover:underline flex items-center mt-4 md:mt-0">
             View All Products
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">

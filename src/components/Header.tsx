@@ -23,9 +23,9 @@ export default function Header() {
         <Link href="/blog" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Blog</Link>
         <Link href="/store" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Store</Link>
         <Link href="/courses" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Courses</Link>
+        <Link href="/community" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Community</Link> 
         <Link href="/about" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">About Us</Link>
         <Link href="/contact" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Contact</Link>
-        {/* <Link href="/search" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Properties</Link> */}
       </nav>
       
       <div className="flex items-center gap-4">
@@ -81,6 +81,13 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Courses
+            </Link>
+            <Link 
+              href="/community" 
+              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Community
             </Link>
             <Link 
               href="/about" 

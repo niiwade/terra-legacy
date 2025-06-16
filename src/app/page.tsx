@@ -5,6 +5,7 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import RecentArticlesSection from "@/components/RecentArticlesSection";
 import CTASection from "@/components/CTASection";
+import UpcomingEventsSection from "@/components/UpcomingEventsSection";
 
 
 export default function Home() {
@@ -24,10 +25,12 @@ export default function Home() {
         </div>
         
         <div data-aos="fade-up" data-aos-delay="100">
-          <TestimonialsSection />
+          <UpcomingEventsSection />
         </div>
         
-       
+        <div data-aos="fade-up" data-aos-delay="100">
+          <TestimonialsSection />
+        </div>
         
         <div data-aos="fade-up" data-aos-delay="100">
           <FAQSection />

@@ -8,7 +8,7 @@ import JourneySection from "@/components/about/JourneySection";
 import ValuesSection from "@/components/about/ValuesSection";
 import AchievementsSection from "@/components/about/AchievementsSection";
 import ExperienceSection from "@/components/about/ExperienceSection";
-import TeamSection from "@/components/about/TeamSection";
+// import TeamSection from "@/components/about/TeamSection";
 import ClientsSection from "@/components/about/ClientsSection";
 import CTASection from "@/components/CTASection";
 
@@ -42,9 +42,9 @@ export default function AboutPage() {
           <ExperienceSection />
         </div>
         
-        <div data-aos="fade-up" data-aos-delay="200">
+        {/* <div data-aos="fade-up" data-aos-delay="200">
           <TeamSection />
-        </div>
+        </div> */}
         
         <div data-aos="fade-up" data-aos-delay="100">
           <ClientsSection />
