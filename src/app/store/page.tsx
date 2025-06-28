@@ -2,159 +2,22 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-// Store products data
-const storeProducts = [
-  {
-    id: '1',
-    image: '/images/properties/1.jpg',
-    title: 'Land Investment Guide',
-    category: 'E-Book',
-    price: '$24.99',
-    rating: '4.8/5',
-    reviews: '124 reviews',
-    bestseller: true,
-    description: 'A comprehensive guide to investing in land properties with strategies for long-term growth and passive income.'
-  },
-  {
-    id: '2',
-    image: '/images/properties/2.jpg',
-    title: 'Property Analysis Toolkit',
-    category: 'Digital Tool',
-    price: '$49.99',
-    rating: '4.6/5',
-    reviews: '89 reviews',
-    bestseller: false,
-    description: 'Interactive spreadsheets and calculators to analyze property values, ROI, and investment potential.'
-  },
-  {
-    id: '3',
-    image: '/images/properties/3.jpg',
-    title: 'Rural Land Evaluation Course',
-    category: 'Online Course',
-    price: '$199.99',
-    rating: '4.9/5',
-    reviews: '256 reviews',
-    bestseller: true,
-    description: 'Learn how to evaluate rural properties, understand zoning laws, and identify high-potential investment opportunities.'
-  },
-  {
-    id: '4',
-    image: '/images/properties/4.jpg',
-    title: 'Land Flipping Masterclass',
-    category: 'Video Course',
-    price: '$299.99',
-    rating: '4.7/5',
-    reviews: '178 reviews',
-    bestseller: true,
-    description: 'Master the art of buying undervalued land and selling it for profit with our step-by-step video course.'
-  },
-  {
-    id: '5',
-    image: '/images/properties/5.jpg',
-    title: 'Property Investment Calculator',
-    category: 'Digital Tool',
-    price: '$39.99',
-    rating: '4.5/5',
-    reviews: '63 reviews',
-    bestseller: false,
-    description: 'Calculate potential returns, mortgage payments, and cash flow for any property investment with this easy-to-use tool.'
-  },
-  {
-    id: '6',
-    image: '/images/properties/6.jpg',
-    title: 'Land Ownership Legal Guide',
-    category: 'E-Book',
-    price: '$19.99',
-    rating: '4.8/5',
-    reviews: '92 reviews',
-    bestseller: false,
-    description: 'Navigate the legal aspects of land ownership, including titles, easements, and property rights.'
-  },
-  {
-    id: '7',
-    image: '/images/properties/7.jpg',
-    title: 'Passive Income Through Land',
-    category: 'Online Course',
-    price: '$249.99',
-    rating: '4.9/5',
-    reviews: '215 reviews',
-    bestseller: true,
-    description: 'Discover multiple strategies to generate passive income from your land investments without active management.'
-  },
-  {
-    id: '8',
-    image: '/images/properties/8.jpg',
-    title: 'Land Due Diligence Kit',
-    category: 'Digital Tool',
-    price: '$79.99',
-    rating: '4.7/5',
-    reviews: '142 reviews',
-    bestseller: false,
-    description: 'Complete toolkit for performing thorough due diligence on land purchases, including checklists and document templates.'
-  },
-  {
-    id: '9',
-    image: '/images/properties/9.jpg',
-    title: 'Rural Property Valuation Guide',
-    category: 'E-Book',
-    price: '$34.99',
-    rating: '4.6/5',
-    reviews: '87 reviews',
-    bestseller: false,
-    description: 'Learn professional techniques for accurately valuing rural properties and land parcels in any market.'
-  },
-  {
-    id: '10',
-    image: '/images/properties/10.jpg',
-    title: 'Land Subdivision Secrets',
-    category: 'Video Course',
-    price: '$349.99',
-    rating: '4.8/5',
-    reviews: '167 reviews',
-    bestseller: true,
-    description: 'Step-by-step guide to subdividing land for maximum profit, including permitting, zoning, and marketing strategies.'
-  },
-  {
-    id: '11',
-    image: '/images/properties/11.jpg',
-    title: 'Property Marketing Toolkit',
-    category: 'Digital Tool',
-    price: '$59.99',
-    rating: '4.5/5',
-    reviews: '78 reviews',
-    bestseller: false,
-    description: 'Marketing templates, social media assets, and advertising strategies specifically designed for land and property sales.'
-  },
-  {
-    id: '12',
-    image: '/images/properties/12.jpg',
-    title: 'Tax Strategies for Land Investors',
-    category: 'E-Book',
-    price: '$29.99',
-    rating: '4.7/5',
-    reviews: '103 reviews',
-    bestseller: false,
-    description: 'Maximize your investment returns with tax strategies specifically designed for land investors and property flippers.'
-  }
-];
-
-// Product categories
-const categories = [
-  'All',
-  'E-Book',
-  'Online Course',
-  'Video Course',
-  'Digital Tool'
-];
+// Import store products data
+import { storeProducts, categories } from './data';
+// Import cart context
+import { useCart, CartProduct } from '../context/CartContext';
 
 export default function StorePage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  // Keep searchQuery state but add a search input in the UI later
   const [filteredProducts, setFilteredProducts] = useState(storeProducts);
   const [sortOption, setSortOption] = useState('featured');
-  
+  const router = useRouter();
+
   // Initialize AOS animation library
   useEffect(() => {
     AOS.init({
@@ -162,7 +25,7 @@ export default function StorePage() {
       once: true,
     });
   }, []);
-  
+
   // Filter products function wrapped in useCallback to prevent unnecessary re-renders
   const filterProducts = useCallback(() => {
     let filtered = [...storeProducts];
@@ -197,22 +60,82 @@ export default function StorePage() {
     filterProducts();
   }, [filterProducts]);
 
+  // Get cart functions from context
+  const { addToCart, getCartCount } = useCart();
+  
+  // Handle adding product to cart
+  const handleAddToCart = (productId: string) => {
+    console.log('Adding product to cart:', productId);
+    const product = storeProducts.find(p => p.id === productId);
+    if (product) {
+      // Convert to CartProduct type and add to cart
+      const cartProduct: CartProduct = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+        quantity: 1
+      };
+      
+      console.log('Cart product to add:', cartProduct);
+      addToCart(cartProduct);
+      console.log('Current cart count after adding:', getCartCount());
+      
+      // Show a brief notification
+      const productElement = document.getElementById(`product-${productId}`);
+      if (productElement) {
+        const notification = document.createElement('div');
+        notification.className = 'absolute top-2 right-2 bg-green-100 text-green-800 px-3 py-1 rounded-md text-sm animate-fade-in-out';
+        notification.textContent = 'Added to cart!';
+        productElement.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.remove();
+        }, 2000);
+      }
+    }
+  };
+  
+  // Handle view product details
+  const handleViewProduct = (productId: string) => {
+    router.push(`/store/${productId}`);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative bg-pink-200 text-white py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="max-w-3xl" data-aos="fade-up">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Terra Legacy Store</h1>
-            <p className="text-xl mb-8">Educational resources to help you succeed in land investment</p>
-            <div className="flex flex-wrap gap-4">
-              <button className="bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-white transition-colors">
-                Browse Courses
-              </button>
-              <button className="bg-transparent border border-black text-black px-6 py-3 rounded-md font-medium hover:bg-white/10 transition-colors">
-                View E-Books
-              </button>
+          <div className="flex justify-between items-start">
+            <div className="max-w-3xl" data-aos="fade-up">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Terra Legacy Store</h1>
+              <p className="text-xl mb-8">Educational resources to help you succeed in land investment</p>
+              <div className="flex flex-wrap gap-4">
+                <button className="bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-white transition-colors">
+                  Browse Courses
+                </button>
+                <button className="bg-transparent border border-black text-black px-6 py-3 rounded-md font-medium hover:bg-white/10 transition-colors">
+                  View E-Books
+                </button>
+              </div>
             </div>
+            
+            <button 
+              onClick={() => router.push('/store/checkout')}
+              className="relative bg-white text-burgundy p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors"
+              aria-label="View cart"
+              data-aos="fade-left"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              {getCartCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-burgundy text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                  {getCartCount()}
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </section>
@@ -260,6 +183,7 @@ export default function StorePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product, index) => (
               <div 
+                id={`product-${product.id}`}
                 key={product.id}
                 className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-burgundy hover:translate-y-[-5px]"
                 data-aos="fade-up"
@@ -299,12 +223,19 @@ export default function StorePage() {
                   </div>
                   
                   <div className="mt-4 flex gap-2">
-                    <button className="flex-1 bg-burgundy hover:bg-burgundy/90 text-white py-2 rounded transition-colors duration-300">
+                    <button 
+                      onClick={() => handleAddToCart(product.id)}
+                      className="flex-1 bg-burgundy hover:bg-burgundy/90 text-white py-2 rounded transition-colors duration-300"
+                    >
                       Add to Cart
                     </button>
-                    <button className="px-3 py-2 border border-gray-300 rounded hover:bg-gray-100 transition-colors">
+                    <button 
+                      onClick={() => handleViewProduct(product.id)}
+                      className="px-3 py-2 border border-gray-300 rounded hover:bg-gray-100 transition-colors"
+                    >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                       </svg>
                     </button>
                   </div>

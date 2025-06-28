@@ -43,6 +43,12 @@ export default function CommunityPage() {
               >
                 Volunteer
               </a>
+              <a 
+                href="/community/marketplace" 
+                className="px-6 py-3 bg-primary-light text-black font-medium rounded-md hover:bg-primary-light hover:bg-opacity-90 transition-colors duration-300"
+              >
+                Marketplace
+              </a>
             </div>
           </div>
         </div>

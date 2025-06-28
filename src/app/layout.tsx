@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import TawkToChat from "@/components/TawkToChat";
 import AOSInitializer from '@/components/AOSInitializer';
+import { CartProvider } from './context/CartContext';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -33,13 +34,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${manrope.variable}`}>
       <body className="font-montserrat">
-        <AOSInitializer />
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
-        <TawkToChat />
+        <CartProvider>
+          <AOSInitializer />
+          <Header />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+          <TawkToChat />
+        </CartProvider>
       </body>
     </html>
   )
