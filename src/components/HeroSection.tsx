@@ -32,19 +32,19 @@ export default function HeroSection() {
             Empowering Future Landowners
           </h1>
           <p className="text-white text-xl mb-8 max-w-3xl mx-auto">
-            Unlock the potential of land ownership with our comprehensive courses and curated land listings. Start your journey towards sustainable land stewardship today.
+            Courses, Listings, and Community for Inspiring & Current Landowners and Investors.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Link 
               href="/courses" 
-              className="px-8 py-4 bg-green-500 hover:bg-green-600 text-black font-medium rounded-md transition-all duration-300 text-lg"
+              className="px-8 py-4 bg-fern hover:bg-opacity-90 border-2 text-white border-mist font-medium rounded-full hover:scale-105 transition-all duration-300 text-lg"
             >
               Explore Courses
             </Link>
             <a 
               href="/store" 
-              className="px-8 py-4 bg-white hover:bg-gray-100 text-black font-medium rounded-md transition-all duration-300 text-lg"
+              className="px-8 py-4 bg-transparent border-2 border-mist hover:bg-mist text-white hover:text-forest font-medium rounded-full transition-all duration-300 text-lg hover:scale-105"
             >
               Shop Now
             </a>

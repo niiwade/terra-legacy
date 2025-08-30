@@ -3,6 +3,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* CLAUDE.md Brand Color Palette */
+  --forest: #3c4b33;
+  --earth: #000000;
+  --sunflower: #e9c770;
+  --fern: #6f8d5e;
+  --mist: #eeeced;
+  --peachtree: #f5e6d3;
+  
+  /* Legacy colors for backwards compatibility */
   --burgundy: #C42B59;
   --blush: #FFE1E7;
   --sage: #D4E0C3;
@@ -12,6 +22,12 @@
   /* Theme variables */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-forest: var(--forest);
+  --color-earth: var(--earth);
+  --color-sunflower: var(--sunflower);
+  --color-fern: var(--fern);
+  --color-mist: var(--mist);
+  --color-peachtree: var(--peachtree);
   --color-burgundy: var(--burgundy);
   --color-blush: var(--blush);
   --color-sage: var(--sage);
@@ -32,8 +48,88 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body), 'Manrope', Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
 }
 
+/* Luxury Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), 'Montserrat', Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-size: 1.875rem;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+  margin-bottom: 0.875rem;
+}
+
+/* Elegant spacing and layout */
+.luxury-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.luxury-section {
+  padding: 5rem 0;
+}
+
+.luxury-card {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  transition: all 0.3s ease;
+}
+
+.luxury-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -3px rgb(0 0 0 / 0.1);
+}
+
+/* Smooth animations */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button base styles for consistency */
+.btn-base {
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
 }

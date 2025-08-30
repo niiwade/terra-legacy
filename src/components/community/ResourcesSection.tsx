@@ -162,7 +162,7 @@ export default function ResourcesSection({ showViewDetailsButton = false }: Reso
         <div className="text-center mt-12" data-aos="fade-up">
           <Link 
             href="/community/resources" 
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-black bg-primary hover:bg-primary-dark transition-colors duration-300"
           >
             View All Resources
           </Link>

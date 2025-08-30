@@ -173,7 +173,7 @@ export default function MarketplaceSection() {
           <button 
             id="create"
             onClick={() => setShowCreateForm(!showCreateForm)}
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-black bg-primary hover:bg-primary-dark transition-colors duration-300"
           >
             {showCreateForm ? 'Cancel' : 'Create New Listing'}
           </button>

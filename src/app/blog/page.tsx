@@ -23,10 +23,10 @@ interface BlogPost {
 const blogPosts: BlogPost[] = [
   {
     id: 1,
-    title: 'The Impact of Technology on the Workplace: How Technology is Changing',
-    category: 'Technology',
+    title: 'Starting Your Homestead: Essential Steps for Beginners',
+    category: 'Homesteading',
     image: '/images/blog/1.jpg',
-    date: 'August 20, 2022',
+    date: 'December 15, 2024',
     author: {
       name: 'Randy Wilson',
       avatar: '/images/avatars/1.jpg'
@@ -34,10 +34,10 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 2,
-    title: 'The Impact of Technology on the Workplace: How Technology is Changing',
-    category: 'Technology',
+    title: 'Sustainable Farming Practices for Small Acreage',
+    category: 'Farming',
     image: '/images/blog/2.jpg',
-    date: 'August 20, 2022',
+    date: 'December 12, 2024',
     author: {
       name: 'Jason Friedman',
       avatar: '/images/avatars/2.jpg'
@@ -45,10 +45,10 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 3,
-    title: 'The Impact of Technology on the Workplace: How Technology is Changing',
-    category: 'Technology',
+    title: 'Organic Gardening: From Soil to Harvest',
+    category: 'Gardening',
     image: '/images/blog/3.jpg',
-    date: 'August 20, 2022',
+    date: 'December 10, 2024',
     author: {
       name: 'Elizabeth Smith',
       avatar: '/images/avatars/3.jpg'
@@ -56,10 +56,10 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 4,
-    title: 'The Impact of Technology on the Workplace: How Technology is Changing',
-    category: 'Technology',
+    title: 'Land Investment Strategies for Rural Properties',
+    category: 'Real Estate',
     image: '/images/blog/4.jpg',
-    date: 'August 20, 2022',
+    date: 'December 8, 2024',
     author: {
       name: 'Alex Smith',
       avatar: '/images/avatars/4.jpg'
@@ -67,10 +67,10 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 5,
-    title: 'The Impact of Technology on the Workplace: How Technology is Changing',
-    category: 'Technology',
+    title: 'Building Self-Sufficiency Through Homesteading',
+    category: 'Homesteading',
     image: '/images/blog/1.jpg',
-    date: 'August 20, 2022',
+    date: 'December 5, 2024',
     author: {
       name: 'Michael Davis',
       avatar: '/images/avatars/1.jpg'
@@ -78,10 +78,10 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 6,
-    title: 'The Impact of Technology on the Workplace: How Technology is Changing',
-    category: 'Technology',
+    title: 'Permaculture Design for Your Property',
+    category: 'Farming',
     image: '/images/blog/2.jpg',
-    date: 'August 20, 2022',
+    date: 'December 3, 2024',
     author: {
       name: 'John Smith',
       avatar: '/images/avatars/2.jpg'
@@ -89,10 +89,10 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 7,
-    title: 'The Impact of Technology on the Workplace: How Technology is Changing',
-    category: 'Technology',
+    title: 'Seasonal Gardening: What to Plant When',
+    category: 'Gardening',
     image: '/images/blog/3.jpg',
-    date: 'August 20, 2022',
+    date: 'December 1, 2024',
     author: {
       name: 'Jason Friedman',
       avatar: '/images/avatars/3.jpg'
@@ -100,10 +100,10 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 8,
-    title: 'The Impact of Technology on the Workplace: How Technology is Changing',
-    category: 'Technology',
+    title: 'Evaluating Land for Agricultural Potential',
+    category: 'Investment',
     image: '/images/blog/4.jpg',
-    date: 'August 20, 2022',
+    date: 'November 28, 2024',
     author: {
       name: 'Elizabeth Smith',
       avatar: '/images/avatars/4.jpg'
@@ -111,10 +111,10 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 9,
-    title: 'The Impact of Technology on the Workplace: How Technology is Changing',
-    category: 'Technology',
+    title: 'Water Management for Rural Properties',
+    category: 'Homesteading',
     image: '/images/blog/1.jpg',
-    date: 'August 20, 2022',
+    date: 'November 25, 2024',
     author: {
       name: 'John Smith',
       avatar: '/images/avatars/1.jpg'

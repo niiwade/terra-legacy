@@ -1,12 +1,14 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useCart, CartProduct } from '../app/context/CartContext';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [communityDropdownOpen, setCommunityDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { getCartCount, cart } = useCart();
   const [cartItemCount, setCartItemCount] = useState(0);
   
@@ -33,26 +35,55 @@ export default function Header() {
     }
   }, [getCartCount, cart]);
 
+  // Handle scroll events to change header background
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="w-full py-4 px-6 md:px-12 flex items-center justify-between bg-white shadow-sm sticky top-0 z-50">
+    <header className={`w-full py-4 px-6 md:px-12 flex items-center justify-between shadow-sm sticky top-0 z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-white' : 'bg-forest'
+    }`}>
       <div className="flex items-center">
-        <div className="flex items-center gap-2">
-          <div className="bg-burgundy w-8 h-8 rounded-md flex items-center justify-center">
-            <span className="text-white font-bold text-sm">TL</span>
-          </div>
-          <Link href="/" className="font-bold text-xl text-charcoal">Terra Legacy</Link>
-        </div>
+        <Link href="/" className="flex items-center gap-3">
+          <Image 
+            src="/terra-logo.png" 
+            alt="Terra Legacy Land Services Logo"
+            width={40}
+            height={40}
+            className="h-10 w-auto"
+          />
+          {/* <span className={`font-bold text-xl transition-colors duration-300 ${
+            isScrolled ? 'text-forest' : 'text-mist'
+          }`}>Terra Legacy</span> */}
+        </Link>
       </div>
       
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-8">
-        <Link href="/" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Home</Link>
-        <Link href="/blog" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Blog</Link>
-        <Link href="/store" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Store</Link>
-        <Link href="/courses" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Courses</Link>
+        <Link href="/" className={`font-medium text-sm transition-colors ${
+          isScrolled ? 'text-forest hover:text-fern' : 'text-mist hover:text-sunflower'
+        }`}>Home</Link>
+        <Link href="/blog" className={`font-medium text-sm transition-colors ${
+          isScrolled ? 'text-forest hover:text-fern' : 'text-mist hover:text-sunflower'
+        }`}>Blog</Link>
+        <Link href="/store" className={`font-medium text-sm transition-colors ${
+          isScrolled ? 'text-forest hover:text-fern' : 'text-mist hover:text-sunflower'
+        }`}>Store</Link>
+        <Link href="/courses" className={`font-medium text-sm transition-colors ${
+          isScrolled ? 'text-forest hover:text-fern' : 'text-mist hover:text-sunflower'
+        }`}>Courses</Link>
         <div className="relative group">
           <button 
-            className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors flex items-center gap-1"
+            className={`font-medium text-sm transition-colors flex items-center gap-1 ${
+              isScrolled ? 'text-forest hover:text-fern' : 'text-mist hover:text-sunflower'
+            }`}
             onClick={() => setCommunityDropdownOpen(!communityDropdownOpen)}
             onMouseEnter={() => setCommunityDropdownOpen(true)}
             onMouseLeave={() => setCommunityDropdownOpen(false)}
@@ -68,41 +99,53 @@ export default function Header() {
               onMouseEnter={() => setCommunityDropdownOpen(true)}
               onMouseLeave={() => setCommunityDropdownOpen(false)}
             >
-              <Link href="/community" className="block px-4 py-2 text-sm text-charcoal hover:bg-gray-100 hover:text-burgundy transition-colors">Community Home</Link>
-              <Link href="/community/events" className="block px-4 py-2 text-sm text-charcoal hover:bg-gray-100 hover:text-burgundy transition-colors">Events</Link>
-              <Link href="/community/forums" className="block px-4 py-2 text-sm text-charcoal hover:bg-gray-100 hover:text-burgundy transition-colors">Forums</Link>
-              <Link href="/community/resources" className="block px-4 py-2 text-sm text-charcoal hover:bg-gray-100 hover:text-burgundy transition-colors">Resources</Link>
-              <Link href="/community/marketplace" className="block px-4 py-2 text-sm text-charcoal hover:bg-gray-100 hover:text-burgundy transition-colors font-medium">Marketplace</Link>
+              <Link href="/community" className="block px-4 py-2 text-sm text-charcoal hover:bg-mist hover:text-forest transition-colors">Community Home</Link>
+              <Link href="/community/events" className="block px-4 py-2 text-sm text-charcoal hover:bg-mist hover:text-forest transition-colors">Events</Link>
+              <Link href="/community/forums" className="block px-4 py-2 text-sm text-charcoal hover:bg-mist hover:text-forest transition-colors">Forums</Link>
+              <Link href="/community/resources" className="block px-4 py-2 text-sm text-charcoal hover:bg-mist hover:text-forest transition-colors">Resources</Link>
+              <Link href="/community/marketplace" className="block px-4 py-2 text-sm text-charcoal hover:bg-mist hover:text-forest transition-colors font-medium">Marketplace</Link>
             </div>
           )}
         </div>
-        <Link href="/about" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">About Us</Link>
-        <Link href="/contact" className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors">Contact</Link>
+        <Link href="/about" className={`font-medium text-sm transition-colors ${
+          isScrolled ? 'text-forest hover:text-fern' : 'text-mist hover:text-sunflower'
+        }`}>About Us</Link>
+        <Link href="/contact" className={`font-medium text-sm transition-colors ${
+          isScrolled ? 'text-forest hover:text-fern' : 'text-mist hover:text-sunflower'
+        }`}>Contact</Link>
       </nav>
       
       <div className="flex items-center gap-4">
-        <button className="hidden md:block px-4 py-2 text-sm font-medium text-charcoal hover:bg-gray-100 rounded-md transition-colors">Login</button>
+        <button className={`hidden md:block px-6 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
+          isScrolled 
+            ? 'text-forest hover:bg-forest hover:text-mist' 
+            : 'text-mist hover:bg-mist hover:text-forest'
+        }`}>Login</button>
         
         {/* Cart Icon after login button - always visible */}
         <Link href="/store/checkout" className="relative flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-black hover:text-burgundy transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-colors ${
+            isScrolled ? 'text-forest hover:text-fern' : 'text-mist hover:text-sunflower'
+          }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
           {cartItemCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-burgundy text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+            <span className="absolute -top-2 -right-2 bg-sunflower text-earth text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
               {cartItemCount}
             </span>
           )}
         </Link>
         
-        <button className="px-4 py-2 bg-burgundy text-white text-sm font-medium rounded-md hover:bg-opacity-90 transition-colors">Sign Up</button>
+        <button className="px-6 py-2 bg-fern text-mist text-sm font-medium rounded-full hover:bg-opacity-90 hover:scale-105 transition-all duration-300">Sign Up</button>
         
         {/* Mobile Menu Button */}
         <button 
           className="md:hidden flex items-center" 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-charcoal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-colors ${
+            isScrolled ? 'text-forest' : 'text-mist'
+          }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
           </svg>
         </button>

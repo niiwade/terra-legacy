@@ -33,16 +33,19 @@ const popularPosts: PopularPost[] = [
 ];
 
 const categories = [
-  { name: 'Technology', count: 12 },
+  { name: 'Homesteading', count: 15 },
+  { name: 'Farming', count: 12 },
+  { name: 'Gardening', count: 10 },
   { name: 'Real Estate', count: 8 },
   { name: 'Investment', count: 6 },
-  { name: 'Home Decor', count: 5 },
+  { name: 'Technology', count: 5 },
   { name: 'Market Trends', count: 4 }
 ];
 
 const tags = [
-  'Real Estate', 'Technology', 'Investment', 'Home Buying', 
-  'Selling Tips', 'Market Analysis', 'Interior Design', 'Smart Homes'
+  'Homesteading', 'Farming', 'Gardening', 'Sustainable Living', 'Permaculture',
+  'Real Estate', 'Land Investment', 'Investment', 'Home Buying', 
+  'Organic Farming', 'Self-Sufficiency', 'Market Analysis', 'Land Management'
 ];
 
 export default function BlogSidebar() {

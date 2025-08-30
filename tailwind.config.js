@@ -12,7 +12,15 @@ module.exports = {
         manrope: ['var(--font-manrope)', 'Manrope', 'sans-serif'],
       },
       colors: {
-        // Custom color palette based on provided colors
+        // CLAUDE.md Brand Color Palette
+        forest: '#3c4b33',   // FOREST - for headers, footers, luxury base
+        earth: '#000000',    // EARTH - for headers, footers, luxury base  
+        sunflower: '#e9c770', // SUNFLOWER - for buttons with dark text
+        fern: '#6f8d5e',     // FERN - for buttons with light text
+        mist: '#eeeced',     // MIST - for content blocks, button text
+        peachtree: '#f5e6d3', // PEACHTREE - for callout sections
+        
+        // Legacy colors for backwards compatibility
         burgundy: '#C42B59', // Rich burgundy
         blush: '#FFE1E7',    // Soft pink
         sage: '#D4E0C3',     // Light sage green

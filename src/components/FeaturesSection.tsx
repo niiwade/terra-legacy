@@ -248,7 +248,7 @@ export default function FeaturesSection() {
                 </div>
                 
                 <div className="mt-4">
-                  <button className="w-full bg-burgundy hover:bg-burgundy/90 text-white py-2 rounded transition-colors duration-300">
+                  <button className="w-full bg-fern hover:bg-opacity-90 text-mist py-2 rounded-full hover:scale-105 transition-all duration-300">
                     Add to Cart
                   </button>
                 </div>

@@ -112,10 +112,10 @@ export default function StorePage() {
               <h1 className="text-4xl md:text-5xl font-bold mb-4">Terra Legacy Store</h1>
               <p className="text-xl mb-8">Educational resources to help you succeed in land investment</p>
               <div className="flex flex-wrap gap-4">
-                <button className="bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-white transition-colors">
+                <button className="bg-forest text-mist px-6 py-3 rounded-full font-medium hover:bg-opacity-90 hover:scale-105 transition-all duration-300">
                   Browse Courses
                 </button>
-                <button className="bg-transparent border border-black text-black px-6 py-3 rounded-md font-medium hover:bg-white/10 transition-colors">
+                <button className="bg-transparent border-2 border-forest text-forest px-6 py-3 rounded-full font-medium hover:bg-forest hover:text-mist transition-all duration-300">
                   View E-Books
                 </button>
               </div>
@@ -266,7 +266,7 @@ export default function StorePage() {
                 placeholder="Your email address" 
                 className="flex-1 px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-burgundy"
               />
-              <button className="bg-burgundy text-white px-6 py-3 rounded-md font-medium hover:bg-burgundy/90 transition-colors">
+              <button className="bg-fern text-mist px-6 py-3 rounded-full font-medium hover:bg-opacity-90 hover:scale-105 transition-all duration-300">
                 Subscribe
               </button>
             </div>

@@ -223,10 +223,10 @@ export default function CoursesPage() {
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-black">Terra Legacy Courses</h1>
             <p className="text-xl mb-8 text-black">Comprehensive education for land investment success</p>
             <div className="flex flex-wrap gap-4">
-              <button className="bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors">
+              <button className="bg-forest text-mist px-6 py-3 rounded-full font-medium hover:bg-opacity-90 hover:scale-105 transition-all duration-300">
                 Browse All Courses
               </button>
-              <button className="bg-transparent border border-black text-black px-6 py-3 rounded-md font-medium hover:bg-white/10 transition-colors">
+              <button className="bg-transparent border-2 border-forest text-forest px-6 py-3 rounded-full font-medium hover:bg-forest hover:text-mist transition-all duration-300">
                 View Free Resources
               </button>
             </div>
@@ -367,7 +367,7 @@ export default function CoursesPage() {
           <div className="max-w-3xl mx-auto" data-aos="fade-up">
             <h2 className="text-3xl font-bold mb-4">Ready to Start Your Learning Journey?</h2>
             <p className="text-lg text-gray-600 mb-8">Join thousands of successful investors who have transformed their approach to land investment through our expert-led courses.</p>
-            <button className="bg-black text-white px-8 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors">
+            <button className="bg-fern text-mist px-8 py-3 rounded-full font-medium hover:bg-opacity-90 hover:scale-105 transition-all duration-300">
               Enroll Now
             </button>
           </div>
