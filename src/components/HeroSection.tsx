@@ -42,12 +42,12 @@ export default function HeroSection() {
             >
               Explore Courses
             </Link>
-            <a 
+            <Link 
               href="/store" 
               className="px-8 py-4 bg-transparent border-2 border-mist hover:bg-mist text-white hover:text-forest font-medium rounded-full transition-all duration-300 text-lg hover:scale-105"
             >
               Shop Now
-            </a>
+            </Link>
           </div>
         </div>
       </div>

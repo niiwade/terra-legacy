@@ -25,6 +25,10 @@ const CATEGORIES = [
   'Local Businesses',
   'Events',
   'Education',
+  'Camping & Outdoors',
+  'Farming & Gardening',
+  'Cross-Promotion',
+  'Collaboration',
 ];
 
 const LISTINGS: MarketplaceListing[] = [
@@ -112,6 +116,48 @@ const LISTINGS: MarketplaceListing[] = [
     featured: false,
     createdAt: '2025-05-28',
   },
+  {
+    id: '7',
+    title: 'Outdoor Adventure Gear',
+    description: 'Premium camping equipment and outdoor gear for your next wilderness adventure. High-quality tents, backpacks, and survival tools.',
+    websiteUrl: 'https://example.com/outdoor-gear',
+    image: '/images/marketplace/7.jpg',
+    category: 'Camping & Outdoors',
+    owner: {
+      name: 'Wilderness Outfitters',
+      avatar: '/images/avatars/7.jpg',
+    },
+    featured: true,
+    createdAt: '2025-05-25',
+  },
+  {
+    id: '8',
+    title: 'Organic Seeds & Garden Tools',
+    description: 'Heirloom organic seeds and professional-grade gardening tools. Everything you need to start your sustainable garden.',
+    websiteUrl: 'https://example.com/organic-garden',
+    image: '/images/marketplace/8.jpg',
+    category: 'Farming & Gardening',
+    owner: {
+      name: 'Heritage Gardens',
+      avatar: '/images/avatars/8.jpg',
+    },
+    featured: false,
+    createdAt: '2025-05-20',
+  },
+  {
+    id: '9',
+    title: 'Partnership: Land Conservation Project',
+    description: 'Seeking collaborative partners for a large-scale land conservation initiative. Perfect for cross-promotion and community impact.',
+    websiteUrl: 'https://example.com/conservation-partner',
+    image: '/images/marketplace/9.jpg',
+    category: 'Cross-Promotion',
+    owner: {
+      name: 'Green Earth Initiative',
+      avatar: '/images/avatars/9.jpg',
+    },
+    featured: true,
+    createdAt: '2025-05-18',
+  },
 ];
 
 export default function MarketplaceSection() {
@@ -131,7 +177,7 @@ export default function MarketplaceSection() {
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" data-aos="fade-up">Community Marketplace</h2>
         <p className="text-gray-600 text-center max-w-3xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">
-          Discover and promote websites, services, and products within our community. Connect with others and grow your business.
+          A dedicated space where users can advertise their websites, services, and products. Upload posts, videos, and promotional content designed to foster collaboration and cross-promotion within our community.
         </p>
         
         {/* Search and Filter */}
@@ -237,6 +283,45 @@ export default function MarketplaceSection() {
                   id="image"
                   accept="image/*"
                   className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="video" className="block text-sm font-medium text-gray-700 mb-1">Upload Video (Optional)</label>
+                <input
+                  type="file"
+                  id="video"
+                  accept="video/*"
+                  className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <p className="text-sm text-gray-500 mt-1">Upload a promotional video to showcase your business or service (Max 50MB)</p>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Promotional Content Type</label>
+                <div className="space-y-2">
+                  <label className="flex items-center">
+                    <input type="checkbox" className="mr-2" />
+                    <span className="text-sm">Website/Service Promotion</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input type="checkbox" className="mr-2" />
+                    <span className="text-sm">Cross-promotion Opportunity</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input type="checkbox" className="mr-2" />
+                    <span className="text-sm">Community Collaboration</span>
+                  </label>
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="contactInfo" className="block text-sm font-medium text-gray-700 mb-1">Contact Information</label>
+                <input
+                  type="text"
+                  id="contactInfo"
+                  className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Email or phone number for collaboration inquiries"
                 />
               </div>
               

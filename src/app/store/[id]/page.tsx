@@ -30,12 +30,11 @@ type StoreProduct = {
 };
 
 type ProductPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default function ProductPage({ params }: ProductPageProps) {
-  // Access the id directly since we're in a Server Component
-  const id = params.id;
+  const [id, setId] = useState<string | null>(null);
   const router = useRouter();
   const { addToCart } = useCart();
   const [product, setProduct] = useState<StoreProduct | null>(null);
@@ -50,18 +49,24 @@ export default function ProductPage({ params }: ProductPageProps) {
       easing: 'ease-in-out',
     });
 
-    // Find the product by ID
-    const foundProduct = storeProducts.find((p: StoreProduct) => p.id === id);
-    
-    if (foundProduct) {
-      setProduct(foundProduct);
-    } else {
-      // Product not found, redirect to store
-      router.push('/store');
-    }
-    
-    setIsLoading(false);
-  }, [id, router]);
+    // Resolve the async params
+    params.then(resolvedParams => {
+      const productId = resolvedParams.id;
+      setId(productId);
+
+      // Find the product by ID
+      const foundProduct = storeProducts.find((p: StoreProduct) => p.id === productId);
+      
+      if (foundProduct) {
+        setProduct(foundProduct);
+      } else {
+        // Product not found, redirect to store
+        router.push('/store');
+      }
+      
+      setIsLoading(false);
+    });
+  }, [params, router]);
 
   const handleAddToCart = () => {
     if (product) {
@@ -91,7 +96,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   const handleBuyNow = () => {
     // In a real application, this would add the product to cart and redirect to checkout
-    if (product) {
+    if (product && id) {
       console.log(`Buying now: ${product.title}, Quantity: ${quantity}`);
       router.push(`/store/checkout?productId=${id}&quantity=${quantity}`);
     }
