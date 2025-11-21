@@ -21,7 +21,7 @@ interface Course {
   duration: string;
   price: number;
   currency: string;
-  status: 'Draft' | 'Approved' | 'Published';
+  status: 'Draft' | 'Approved' | 'Published' | 'Featured';
   enrollment_status: 'Open' | 'Closed' | 'Limited';
   start_date: string;
   end_date?: string;
@@ -29,6 +29,7 @@ interface Course {
   total_lessons: number;
   rating?: number;
   reviews_count?: number;
+  category: string;
 }
 
 interface Chapter {
@@ -108,7 +109,7 @@ class FrappeAPI {
         pwd: password
       }
     });
-    return response.data;
+    return response.data as { message: string; home_page: string; full_name: string };
   }
 
   async logout(): Promise<void> {
@@ -120,7 +121,7 @@ class FrappeAPI {
 
   async getCurrentUser(): Promise<User> {
     const response = await this.request('/api/method/frappe.auth.get_logged_user');
-    return response.data;
+    return response.data as User;
   }
 
   // Course Management
@@ -132,63 +133,63 @@ class FrappeAPI {
 
   async getCourse(courseId: string): Promise<Course> {
     const response = await this.request(`/api/resource/LMS Course/${courseId}`);
-    return response.data;
+    return response.data as Course;
   }
 
   async createCourse(courseData: Partial<Course>): Promise<Course> {
     const response = await this.request('/api/resource/LMS Course', {
       method: 'POST',
-      body: courseData
+      body: courseData as Record<string, unknown>
     });
-    return response.data;
+    return response.data as Course;
   }
 
   async updateCourse(courseId: string, courseData: Partial<Course>): Promise<Course> {
     const response = await this.request(`/api/resource/LMS Course/${courseId}`, {
       method: 'PUT',
-      body: courseData
+      body: courseData as Record<string, unknown>
     });
-    return response.data;
+    return response.data as Course;
   }
 
   // Chapter Management
   async getChapters(courseId: string): Promise<Chapter[]> {
     const response = await this.request(`/api/resource/Course Chapter?filters=[["course","=","${courseId}"]]`);
-    return response.data;
+    return response.data as Chapter[];
   }
 
   async createChapter(chapterData: Partial<Chapter>): Promise<Chapter> {
     const response = await this.request('/api/resource/Course Chapter', {
       method: 'POST',
-      body: chapterData
+      body: chapterData as Record<string, unknown>
     });
-    return response.data;
+    return response.data as Chapter;
   }
 
   // Lesson Management
   async getLessons(chapterId: string): Promise<Lesson[]> {
     const response = await this.request(`/api/resource/Course Lesson?filters=[["chapter","=","${chapterId}"]]`);
-    return response.data;
+    return response.data as Lesson[];
   }
 
   async getLesson(lessonId: string): Promise<Lesson> {
     const response = await this.request(`/api/resource/Course Lesson/${lessonId}`);
-    return response.data;
+    return response.data as Lesson;
   }
 
   async createLesson(lessonData: Partial<Lesson>): Promise<Lesson> {
     const response = await this.request('/api/resource/Course Lesson', {
       method: 'POST',
-      body: lessonData
+      body: lessonData as Record<string, unknown>
     });
-    return response.data;
+    return response.data as Lesson;
   }
 
   // Enrollment Management
   async getEnrollments(userId?: string): Promise<Enrollment[]> {
     const filters = userId ? `?filters=[["member","=","${userId}"]]` : '';
     const response = await this.request(`/api/resource/LMS Enrollment${filters}`);
-    return response.data;
+    return response.data as Enrollment[];
   }
 
   async enrollUser(courseId: string, userId: string): Promise<Enrollment> {
@@ -199,12 +200,12 @@ class FrappeAPI {
         member: userId
       }
     });
-    return response.data;
+    return response.data as Enrollment;
   }
 
   async getUserProgress(enrollmentId: string): Promise<{ progress: number; completed_lessons: string[] }> {
     const response = await this.request(`/api/method/lms.lms.doctype.lms_enrollment.lms_enrollment.get_progress?enrollment=${enrollmentId}`);
-    return response.data;
+    return response.data as { progress: number; completed_lessons: string[] };
   }
 
   async markLessonComplete(lessonId: string, userId: string): Promise<void> {
@@ -220,7 +221,7 @@ class FrappeAPI {
   // Quiz Management
   async getQuiz(quizId: string): Promise<Quiz> {
     const response = await this.request(`/api/resource/LMS Quiz/${quizId}`);
-    return response.data;
+    return response.data as Quiz;
   }
 
   async submitQuizAttempt(quizId: string, answers: Record<string, string | string[]>): Promise<{ score: number; passed: boolean }> {
@@ -231,7 +232,7 @@ class FrappeAPI {
         answers: answers
       }
     });
-    return response.data;
+    return response.data as { score: number; passed: boolean };
   }
 
   // Certificate Management
@@ -252,7 +253,7 @@ class FrappeAPI {
         member: userId
       }
     });
-    return response.data;
+    return response.data as Certificate;
   }
 
   // File Upload
@@ -283,7 +284,7 @@ class FrappeAPI {
   } = {}): Promise<FrappeResponse> {
     const { method = 'GET', body, headers = {} } = options;
 
-    const requestHeaders = {
+    const requestHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       ...headers
