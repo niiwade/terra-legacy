@@ -7,13 +7,32 @@ import 'aos/dist/aos.css';
 import Link from 'next/link';
 import { FaStar, FaStarHalfAlt, FaRegStar, FaUserGraduate, FaBook, FaClock } from 'react-icons/fa';
 
+// Course interface
+interface Course {
+  id: string;
+  title: string;
+  instructor: string;
+  level: string;
+  duration: string;
+  lectures: number;
+  price: string;
+  rating: string;
+  reviews: number;
+  image: string;
+  category: string;
+  featured: boolean;
+  description: string;
+  enrollmentStatus: string;
+  startDate: string;
+}
+
 // Star rating component
 const StarRating = ({ rating }: { rating: string }) => {
   const ratingNum = parseFloat(rating);
   const fullStars = Math.floor(ratingNum);
   const hasHalfStar = ratingNum - fullStars >= 0.5;
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-  
+
   return (
     <div className="flex">
       {[...Array(fullStars)].map((_, i) => (
@@ -40,7 +59,7 @@ const coursesData = [
     rating: '4.9',
     reviews: 128,
     image: '/images/courses/1.jpg',
-    category: 'Fundamentals',
+    category: 'Land Ownership',
     featured: true,
     description: 'Learn the essential principles of land investment, including market analysis, valuation techniques, and risk assessment strategies.',
     enrollmentStatus: 'Open',
@@ -57,7 +76,7 @@ const coursesData = [
     rating: '4.8',
     reviews: 94,
     image: '/images/courses/2.jpg',
-    category: 'Acquisition',
+    category: 'Land Ownership',
     featured: true,
     description: 'Master sophisticated techniques for identifying, negotiating, and acquiring high-potential land parcels in competitive markets.',
     enrollmentStatus: 'Open',
@@ -65,7 +84,7 @@ const coursesData = [
   },
   {
     id: 'c3',
-    title: 'Land Development and Zoning',
+    title: 'Sustainable Land Development',
     instructor: 'Prof. Emily Chen',
     level: 'Intermediate',
     duration: '10 weeks',
@@ -74,94 +93,94 @@ const coursesData = [
     rating: '4.7',
     reviews: 76,
     image: '/images/courses/3.jpg',
-    category: 'Development',
+    category: 'Sustainable Practices',
     featured: false,
-    description: 'Navigate the complex landscape of zoning regulations, permits, and development planning for maximum land utilization.',
+    description: 'Navigate sustainable development practices, eco-friendly zoning, and environmentally conscious land utilization.',
     enrollmentStatus: 'Open',
     startDate: 'July 20, 2025'
   },
   {
     id: 'c4',
-    title: 'Rural Land Investment Masterclass',
+    title: 'Organic Farming Essentials',
     instructor: 'James Wilson',
-    level: 'Intermediate',
+    level: 'Beginner',
     duration: '6 weeks',
     lectures: 22,
     price: '$249',
     rating: '4.9',
     reviews: 58,
     image: '/images/courses/4.jpg',
-    category: 'Rural',
+    category: 'Farming',
     featured: false,
-    description: 'Specialized strategies for identifying, acquiring, and developing rural land parcels with high ROI potential.',
+    description: 'Learn the fundamentals of organic farming, from soil preparation to crop rotation and sustainable practices.',
     enrollmentStatus: 'Limited Spots',
     startDate: 'August 10, 2025'
   },
   {
     id: 'c5',
-    title: 'Commercial Land Investment',
+    title: 'Vegetable Gardening Mastery',
     instructor: 'Alexandra Davis, CRE',
-    level: 'Advanced',
-    duration: '12 weeks',
-    lectures: 48,
-    price: '$499',
+    level: 'Beginner',
+    duration: '8 weeks',
+    lectures: 24,
+    price: '$179',
     rating: '4.8',
     reviews: 42,
     image: '/images/courses/1.jpg',
-    category: 'Commercial',
+    category: 'Gardening',
     featured: true,
-    description: 'Comprehensive guide to commercial land investment, including market analysis, financing strategies, and development planning.',
+    description: 'Complete guide to growing your own vegetables, from planning and planting to harvesting and preservation.',
     enrollmentStatus: 'Open',
     startDate: 'September 1, 2025'
   },
   {
     id: 'c6',
-    title: 'Land Investment Tax Strategies',
+    title: 'Planting Zones Guide',
     instructor: 'Robert Thompson, CPA',
-    level: 'Intermediate',
-    duration: '4 weeks',
-    lectures: 16,
-    price: '$179',
+    level: 'Beginner',
+    duration: '2 weeks',
+    lectures: 8,
+    price: 'Free',
     rating: '4.7',
     reviews: 63,
     image: '/images/courses/2.jpg',
-    category: 'Finance',
+    category: 'Free Resources',
     featured: false,
-    description: 'Optimize your land investments with tax-efficient strategies, deductions, and long-term planning techniques.',
+    description: 'Complete guide to understanding planting zones and selecting the right crops for your region.',
     enrollmentStatus: 'Open',
-    startDate: 'July 25, 2025'
+    startDate: 'Available Now'
   },
   {
     id: 'c7',
-    title: 'Sustainable Land Development',
+    title: 'Permaculture Design Course',
     instructor: 'Dr. Lisa Green',
     level: 'Intermediate',
     duration: '8 weeks',
     lectures: 30,
-    price: '$279',
+    price: 'Free',
     rating: '4.9',
     reviews: 47,
     image: '/images/courses/3.jpg',
-    category: 'Sustainability',
+    category: 'Free Resources',
     featured: false,
-    description: 'Learn eco-friendly development practices that maximize both environmental sustainability and investment returns.',
+    description: 'Learn permaculture design principles and create sustainable agricultural systems on your property.',
     enrollmentStatus: 'Open',
-    startDate: 'August 15, 2025'
+    startDate: 'Available Now'
   },
   {
     id: 'c8',
-    title: 'Land Investment Financing',
+    title: 'Water Conservation & Harvesting',
     instructor: 'Thomas Parker, MBA',
-    level: 'Beginner',
+    level: 'Intermediate',
     duration: '6 weeks',
     lectures: 24,
     price: '$229',
     rating: '4.6',
     reviews: 82,
     image: '/images/courses/4.jpg',
-    category: 'Finance',
+    category: 'Sustainable Practices',
     featured: true,
-    description: 'Explore financing options for land investments, from traditional loans to creative funding strategies and partnerships.',
+    description: 'Learn advanced water conservation techniques and rainwater harvesting systems for sustainable land management.',
     enrollmentStatus: 'Open',
     startDate: 'July 30, 2025'
   }
@@ -169,9 +188,11 @@ const coursesData = [
 
 export default function CoursesPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [filteredCourses, setFilteredCourses] = useState(coursesData);
+  const [courses, setCourses] = useState<Course[]>(coursesData);
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>(coursesData);
   const [sortOption, setSortOption] = useState('featured');
-  
+  const [loading, setLoading] = useState(true);
+
   // Initialize AOS animation library
   useEffect(() => {
     AOS.init({
@@ -179,23 +200,85 @@ export default function CoursesPage() {
       once: true,
     });
   }, []);
+
+  // Fetch courses from API
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch('/api/public/content?type=courses&limit=20');
+        const data = await res.json();
+        if (data.data && data.data.length > 0) {
+          // Transform API data to match component structure
+          const transformedCourses: Course[] = data.data.map((item: {
+            id: string;
+            title: string;
+            description: string | null;
+            instructor: string | null;
+            price: string;
+            imageUrl: string | null;
+            category: string | null;
+            isFeatured: boolean;
+            duration: string | null;
+            level: string | null;
+            lectures?: number | null;
+            rating?: number | null;
+            reviews?: number | null;
+            enrollmentStatus?: string | null;
+            startDate?: string | null;
+          }) => ({
+            id: item.id,
+            title: item.title,
+            instructor: item.instructor || 'Terra Legacy Instructor',
+            level: item.level || 'Beginner',
+            duration: item.duration || '6 weeks',
+            lectures: item.lectures || 24,
+            price: item.price === '0' ? 'Free' : (item.price.startsWith('$') ? item.price : `$${item.price}`),
+            rating: item.rating ? item.rating.toString() : '4.5',
+            reviews: item.reviews || 0,
+            image: item.imageUrl || '/images/courses/1.jpg',
+            category: item.category || 'Land Ownership',
+            featured: item.isFeatured,
+            description: item.description || '',
+            enrollmentStatus: item.enrollmentStatus || 'Open',
+            startDate: item.startDate || 'Coming Soon',
+          }));
+          setCourses(transformedCourses);
+        }
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+        // Keep fallback data
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
   
   // Filter courses function wrapped in useCallback to prevent unnecessary re-renders
   const filterCourses = useCallback(() => {
-    let filtered = [...coursesData];
-    
+    let filtered = [...courses];
+
     // Apply category filter
     if (selectedCategory !== 'All') {
       filtered = filtered.filter(course => course.category === selectedCategory);
     }
-    
+
     // Apply sorting
     switch(sortOption) {
       case 'price-low':
-        filtered.sort((a, b) => parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', '')));
+        filtered.sort((a, b) => {
+          const priceA = a.price === 'Free' ? 0 : parseFloat(a.price.replace('$', ''));
+          const priceB = b.price === 'Free' ? 0 : parseFloat(b.price.replace('$', ''));
+          return priceA - priceB;
+        });
         break;
       case 'price-high':
-        filtered.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
+        filtered.sort((a, b) => {
+          const priceA = a.price === 'Free' ? 0 : parseFloat(a.price.replace('$', ''));
+          const priceB = b.price === 'Free' ? 0 : parseFloat(b.price.replace('$', ''));
+          return priceB - priceA;
+        });
         break;
       case 'rating':
         filtered.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
@@ -205,9 +288,9 @@ export default function CoursesPage() {
         filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
         break;
     }
-    
+
     setFilteredCourses(filtered);
-  }, [selectedCategory, sortOption]);
+  }, [selectedCategory, sortOption, courses]);
   
   // Apply filters whenever category or sort option changes
   useEffect(() => {
@@ -216,17 +299,26 @@ export default function CoursesPage() {
   
   return (
     <div className="min-h-screen bg-white">
+      {/* Coming Soon Banner */}
+      <section className="bg-sunflower text-earth py-4">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="text-center">
+            <p className="text-lg font-bold">🚀 Coming Soon - Our comprehensive course platform is launching soon!</p>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Section */}
-      <section className="relative bg-pink-200 text-white py-20">
+      <section className="relative bg-mist text-earth py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="max-w-3xl" data-aos="fade-up">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-black">Terra Legacy Courses</h1>
-            <p className="text-xl mb-8 text-black">Comprehensive education for land investment success</p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Terra Legacy Courses</h1>
+            <p className="text-xl mb-8">Comprehensive education for land investment success</p>
             <div className="flex flex-wrap gap-4">
               <button className="bg-forest text-mist px-6 py-3 rounded-full font-medium hover:bg-opacity-90 hover:scale-105 transition-all duration-300">
                 Browse All Courses
               </button>
-              <button className="bg-transparent border-2 border-forest text-forest px-6 py-3 rounded-full font-medium hover:bg-forest hover:text-mist transition-all duration-300">
+              <button className="bg-fern text-mist px-6 py-3 rounded-full font-medium hover:bg-opacity-90 hover:scale-105 transition-all duration-300">
                 View Free Resources
               </button>
             </div>
@@ -239,35 +331,41 @@ export default function CoursesPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex flex-wrap gap-2">
-              <button 
-                onClick={() => setSelectedCategory('All')} 
-                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'All' ? 'bg-black text-white' : 'bg-gray-100 text-gray-800'}`}
+              <button
+                onClick={() => setSelectedCategory('All')}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'All' ? 'bg-forest text-mist' : 'bg-gray-100 text-gray-800'}`}
               >
                 All Courses
               </button>
-              <button 
-                onClick={() => setSelectedCategory('Fundamentals')} 
-                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'Fundamentals' ? 'bg-black text-white' : 'bg-gray-100 text-gray-800'}`}
+              <button
+                onClick={() => setSelectedCategory('Farming')}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'Farming' ? 'bg-forest text-mist' : 'bg-gray-100 text-gray-800'}`}
               >
-                Fundamentals
+                Farming
               </button>
-              <button 
-                onClick={() => setSelectedCategory('Acquisition')} 
-                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'Acquisition' ? 'bg-black text-white' : 'bg-gray-100 text-gray-800'}`}
+              <button
+                onClick={() => setSelectedCategory('Gardening')}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'Gardening' ? 'bg-forest text-mist' : 'bg-gray-100 text-gray-800'}`}
               >
-                Acquisition
+                Gardening
               </button>
-              <button 
-                onClick={() => setSelectedCategory('Development')} 
-                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'Development' ? 'bg-black text-white' : 'bg-gray-100 text-gray-800'}`}
+              <button
+                onClick={() => setSelectedCategory('Land Ownership')}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'Land Ownership' ? 'bg-forest text-mist' : 'bg-gray-100 text-gray-800'}`}
               >
-                Development
+                Land Ownership
               </button>
-              <button 
-                onClick={() => setSelectedCategory('Finance')} 
-                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'Finance' ? 'bg-black text-white' : 'bg-gray-100 text-gray-800'}`}
+              <button
+                onClick={() => setSelectedCategory('Sustainable Practices')}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'Sustainable Practices' ? 'bg-forest text-mist' : 'bg-gray-100 text-gray-800'}`}
               >
-                Finance
+                Sustainable Practices
+              </button>
+              <button
+                onClick={() => setSelectedCategory('Free Resources')}
+                className={`px-4 py-2 rounded-md text-sm font-medium ${selectedCategory === 'Free Resources' ? 'bg-sunflower text-earth' : 'bg-gray-100 text-gray-800'}`}
+              >
+                Free Resources
               </button>
             </div>
             
@@ -292,6 +390,11 @@ export default function CoursesPage() {
       {/* Courses Grid */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3c4b33]"></div>
+            </div>
+          ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {filteredCourses.map((course, index) => (
               <div 
@@ -358,9 +461,10 @@ export default function CoursesPage() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </section>
-      
+
       {/* Call to Action */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">

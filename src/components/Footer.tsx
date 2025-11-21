@@ -59,7 +59,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/buy" className="text-mist/80 hover:text-sunflower">Buy Property</Link></li>
               <li><Link href="/sell" className="text-mist/80 hover:text-sunflower">Sell Property</Link></li>
-              <li><Link href="/rent" className="text-mist/80 hover:text-sunflower">Lease Property</Link></li>
+              <li><Link href="/lease" className="text-mist/80 hover:text-sunflower">Lease Property</Link></li>
               <li><Link href="/mortgage" className="text-mist/80 hover:text-sunflower">Mortgage Calculator</Link></li>
               <li><Link href="/valuation" className="text-mist/80 hover:text-sunflower">Free Valuation</Link></li>
             </ul>

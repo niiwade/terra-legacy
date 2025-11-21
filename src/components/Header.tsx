@@ -116,14 +116,14 @@ export default function Header() {
       </nav>
       
       <div className="flex items-center gap-4">
-        <button className={`hidden md:block px-6 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
+        {/* <button className={`hidden md:block px-6 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
           isScrolled 
             ? 'text-forest hover:bg-forest hover:text-mist' 
             : 'text-mist hover:bg-mist hover:text-forest'
-        }`}>Login</button>
+        }`}>Login</button> */}
         
         {/* Cart Icon after login button - always visible */}
-        <Link href="/store/checkout" className="relative flex items-center justify-center">
+        {/* <Link href="/store/checkout" className="relative flex items-center justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" className={`h-6 w-6 transition-colors ${
             isScrolled ? 'text-forest hover:text-fern' : 'text-mist hover:text-sunflower'
           }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -135,8 +135,8 @@ export default function Header() {
             </span>
           )}
         </Link>
-        
-        <button className="px-6 py-2 bg-fern text-mist text-sm font-medium rounded-full hover:bg-opacity-90 hover:scale-105 transition-all duration-300">Sign Up</button>
+         */}
+        {/* <button className="px-6 py-2 bg-fern text-mist text-sm font-medium rounded-full hover:bg-opacity-90 hover:scale-105 transition-all duration-300">Sign Up</button> */}
         
         {/* Mobile Menu Button */}
         <button 
@@ -155,9 +155,9 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white shadow-md py-4 px-6 md:hidden">
           <nav className="flex flex-col gap-4">
-            <Link 
-              href="/store/checkout" 
-              className="font-medium text-text hover:text-burgundy transition-colors flex items-center gap-2"
+            <Link
+              href="/store/checkout"
+              className="font-medium text-charcoal hover:text-forest transition-colors flex items-center gap-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               <div className="relative">
@@ -165,7 +165,7 @@ export default function Header() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 {cartItemCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-burgundy text-black text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-sunflower text-earth text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
                     {cartItemCount}
                   </span>
                 )}
@@ -174,35 +174,35 @@ export default function Header() {
             </Link>
             <Link 
               href="/" 
-              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              className="font-medium text-charcoal hover:text-forest transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             {/* <Link 
               href="/search" 
-              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              className="font-medium text-charcoal hover:text-forest transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Properties
             </Link> */}
             <Link 
               href="/blog" 
-              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              className="font-medium text-charcoal hover:text-forest transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Blog
             </Link>
             <Link 
               href="/store" 
-              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              className="font-medium text-charcoal hover:text-forest transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Store
             </Link>
             <Link 
               href="/courses" 
-              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              className="font-medium text-charcoal hover:text-forest transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Courses
@@ -218,28 +218,28 @@ export default function Header() {
               <div className="pl-4 space-y-2 border-l-2 border-gray-200">
                 <Link 
                   href="/community/events" 
-                  className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors block"
+                  className="font-medium text-sm text-charcoal hover:text-forest transition-colors block"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Events
                 </Link>
                 <Link 
                   href="/community/forums" 
-                  className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors block"
+                  className="font-medium text-sm text-charcoal hover:text-forest transition-colors block"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Forums
                 </Link>
                 <Link 
                   href="/community/resources" 
-                  className="font-medium text-sm text-charcoal hover:text-burgundy transition-colors block"
+                  className="font-medium text-sm text-charcoal hover:text-forest transition-colors block"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Resources
                 </Link>
                 <Link 
                   href="/community/marketplace" 
-                  className="text-sm text-charcoal hover:text-burgundy transition-colors block font-medium"
+                  className="text-sm text-charcoal hover:text-forest transition-colors block font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Marketplace
@@ -248,19 +248,19 @@ export default function Header() {
             </div>
             <Link 
               href="/about" 
-              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              className="font-medium text-charcoal hover:text-forest transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               About Us
             </Link>
             <Link 
               href="/contact" 
-              className="font-medium text-charcoal hover:text-burgundy transition-colors"
+              className="font-medium text-charcoal hover:text-forest transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
             </Link>
-            <button className="w-full text-left font-medium text-charcoal hover:text-burgundy transition-colors">
+            <button className="w-full text-left font-medium text-charcoal hover:text-forest transition-colors">
               Login
             </button>
           </nav>

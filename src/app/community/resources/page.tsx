@@ -3,9 +3,10 @@
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { withAuth } from '@/contexts/AuthContext';
 import ResourcesSection from '@/components/community/ResourcesSection';
 
-export default function ResourcesPage() {
+function ResourcesPage() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -30,3 +31,8 @@ export default function ResourcesPage() {
     </div>
   );
 }
+
+export default withAuth(ResourcesPage, {
+  requireAuth: true,
+  requireMembership: 'gold'
+});

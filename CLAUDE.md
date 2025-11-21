@@ -144,6 +144,7 @@ Section for our online community and events
 Support for live events like webinars, workshops, and Q&A sessions
 Calendar or schedule of upcoming events
 Ability for users to join groups on various topics like gardening, farming, and other areas of interest
+
 Online Marketplace
 A dedicated space where users can advertise their own websites and direct traffic for their sales
 Users can upload posts, videos, and other promotional content

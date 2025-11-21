@@ -3,11 +3,12 @@
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { withAuth } from '@/contexts/AuthContext';
 
 import MarketplaceSection from '@/components/community/MarketplaceSection';
 import CTASection from '@/components/CTASection';
 
-export default function MarketplacePage() {
+function MarketplacePage() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -79,3 +80,8 @@ export default function MarketplacePage() {
     </div>
   );
 }
+
+export default withAuth(MarketplacePage, {
+  requireAuth: true,
+  requireMembership: 'gold'
+});

@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { withAuth } from '@/contexts/AuthContext';
 
 type ForumCategory = {
   id: string;
@@ -145,7 +146,7 @@ const POPULAR_TOPICS: ForumTopic[] = [
   },
 ];
 
-export default function ForumsPage() {
+function ForumsPage() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -295,3 +296,8 @@ export default function ForumsPage() {
     </div>
   );
 }
+
+export default withAuth(ForumsPage, {
+  requireAuth: true,
+  requireMembership: 'gold'
+});

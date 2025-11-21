@@ -6,17 +6,93 @@ import { useRouter } from 'next/navigation';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-// Import store products data
-import { storeProducts, categories } from './data';
+// Import store products data as fallback
+import { storeProducts as fallbackProducts, categories as fallbackCategories } from './data';
 // Import cart context
 import { useCart, CartProduct } from '../context/CartContext';
 
+// Product interface matching database schema
+interface Product {
+  id: string;
+  image: string;
+  title: string;
+  category: string;
+  price: string;
+  rating: string;
+  reviews: string;
+  bestseller: boolean;
+  description: string;
+  fileType?: string;
+  fileSize?: string;
+  pages?: number;
+  templates?: number;
+  lessons?: number;
+}
+
 export default function StorePage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  // Keep searchQuery state but add a search input in the UI later
-  const [filteredProducts, setFilteredProducts] = useState(storeProducts);
+  const [products, setProducts] = useState<Product[]>(fallbackProducts);
+  const [categories, setCategories] = useState<string[]>(fallbackCategories);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(fallbackProducts);
   const [sortOption, setSortOption] = useState('featured');
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  // Fetch products from API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('/api/public/content?type=products&limit=50');
+        const data = await res.json();
+        if (data.data && data.data.length > 0) {
+          // Transform API data to match component structure
+          const transformedProducts: Product[] = data.data.map((item: {
+            id: string;
+            name: string;
+            description: string | null;
+            price: string;
+            imageUrl: string | null;
+            category: string | null;
+            isFeatured: boolean;
+            rating?: number | null;
+            reviews?: number | null;
+            fileType?: string | null;
+            fileSize?: string | null;
+            pages?: number | null;
+            templates?: number | null;
+            lessons?: number | null;
+          }) => ({
+            id: item.id,
+            image: item.imageUrl || '/images/properties/1.jpg',
+            title: item.name,
+            category: item.category || 'E-Book',
+            price: item.price.startsWith('$') ? item.price : `$${item.price}`,
+            rating: item.rating ? `${item.rating}/5` : '4.5/5',
+            reviews: item.reviews ? `${item.reviews} reviews` : '0 reviews',
+            bestseller: item.isFeatured,
+            description: item.description || '',
+            fileType: item.fileType || 'PDF',
+            fileSize: item.fileSize || '',
+            pages: item.pages || undefined,
+            templates: item.templates || undefined,
+            lessons: item.lessons || undefined,
+          }));
+          setProducts(transformedProducts);
+
+          // Extract unique categories from products
+          const uniqueCategories = ['All', ...new Set(transformedProducts.map((p: Product) => p.category))];
+          setCategories(uniqueCategories);
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        // Keep fallback data
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // Initialize AOS animation library
   useEffect(() => {
@@ -28,13 +104,13 @@ export default function StorePage() {
 
   // Filter products function wrapped in useCallback to prevent unnecessary re-renders
   const filterProducts = useCallback(() => {
-    let filtered = [...storeProducts];
-    
+    let filtered = [...products];
+
     // Apply category filter
     if (selectedCategory !== 'All') {
       filtered = filtered.filter(product => product.category === selectedCategory);
     }
-    
+
     // Apply sorting
     switch(sortOption) {
       case 'price-low':
@@ -51,9 +127,9 @@ export default function StorePage() {
         filtered.sort((a, b) => (b.bestseller ? 1 : 0) - (a.bestseller ? 1 : 0));
         break;
     }
-    
+
     setFilteredProducts(filtered);
-  }, [selectedCategory, sortOption]);
+  }, [selectedCategory, sortOption, products]);
   
   // Apply filters whenever category or sort option changes
   useEffect(() => {
@@ -66,7 +142,7 @@ export default function StorePage() {
   // Handle adding product to cart
   const handleAddToCart = (productId: string) => {
     console.log('Adding product to cart:', productId);
-    const product = storeProducts.find(p => p.id === productId);
+    const product = products.find(p => p.id === productId);
     if (product) {
       // Convert to CartProduct type and add to cart
       const cartProduct: CartProduct = {
@@ -105,25 +181,25 @@ export default function StorePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-pink-200 text-white py-20">
+      <section className="relative bg-mist text-earth py-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex justify-between items-start">
             <div className="max-w-3xl" data-aos="fade-up">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">Terra Legacy Store</h1>
-              <p className="text-xl mb-8">Educational resources to help you succeed in land investment</p>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">Explore Our Store</h1>
+              <p className="text-xl mb-8">Downloadable E-books and PDFs for land investment success</p>
               <div className="flex flex-wrap gap-4">
                 <button className="bg-forest text-mist px-6 py-3 rounded-full font-medium hover:bg-opacity-90 hover:scale-105 transition-all duration-300">
-                  Browse Courses
+                  Browse E-Books
                 </button>
-                <button className="bg-transparent border-2 border-forest text-forest px-6 py-3 rounded-full font-medium hover:bg-forest hover:text-mist transition-all duration-300">
-                  View E-Books
+                <button className="bg-fern text-mist px-6 py-3 rounded-full font-medium hover:bg-opacity-90 hover:scale-105 transition-all duration-300">
+                  View PDFs
                 </button>
               </div>
             </div>
             
-            <button 
+            <button
               onClick={() => router.push('/store/checkout')}
-              className="relative bg-white text-burgundy p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors"
+              className="relative bg-white text-forest p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors"
               aria-label="View cart"
               data-aos="fade-left"
             >
@@ -131,7 +207,7 @@ export default function StorePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
               {getCartCount() > 0 && (
-                <span className="absolute -top-2 -right-2 bg-burgundy text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                <span className="absolute -top-2 -right-2 bg-forest text-mist text-xs w-5 h-5 flex items-center justify-center rounded-full">
                   {getCartCount()}
                 </span>
               )}
@@ -150,8 +226,8 @@ export default function StorePage() {
                   key={category}
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-md whitespace-nowrap ${
-                    selectedCategory === category 
-                      ? 'bg-burgundy text-white' 
+                    selectedCategory === category
+                      ? 'bg-forest text-mist'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -165,7 +241,7 @@ export default function StorePage() {
               <select 
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy"
+                className="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-forest"
               >
                 <option value="featured">Featured</option>
                 <option value="price-low">Price: Low to High</option>
@@ -180,12 +256,18 @@ export default function StorePage() {
       {/* Products Grid */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3c4b33]"></div>
+            </div>
+          ) : (
+          <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product, index) => (
               <div 
                 id={`product-${product.id}`}
                 key={product.id}
-                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-burgundy hover:translate-y-[-5px]"
+                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-forest hover:translate-y-[-5px]"
                 data-aos="fade-up"
                 data-aos-delay={index % 3 * 100}
               >
@@ -199,18 +281,18 @@ export default function StorePage() {
                     />
                   </div>
                   {product.bestseller && (
-                    <div className="absolute top-4 left-4 bg-burgundy text-white text-xs font-medium px-2 py-1 rounded">
+                    <div className="absolute top-4 left-4 bg-sunflower text-earth text-xs font-medium px-2 py-1 rounded">
                       BESTSELLER
                     </div>
                   )}
-                  <div className="absolute bottom-4 left-4 bg-burgundy text-white text-lg font-bold px-3 py-1 rounded">
+                  <div className="absolute bottom-4 left-4 bg-forest text-mist text-lg font-bold px-3 py-1 rounded">
                     {product.price}
                   </div>
                 </div>
                 
                 <div className="p-6">
-                  <span className="text-sm text-burgundy font-medium mb-1 block">{product.category}</span>
-                  <h3 className="text-xl font-semibold text-black mb-2">{product.title}</h3>
+                  <span className="text-sm text-forest font-medium mb-1 block">{product.category}</span>
+                  <h3 className="text-xl font-semibold text-earth mb-2">{product.title}</h3>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
                   
                   <div className="flex items-center mb-4">
@@ -223,9 +305,9 @@ export default function StorePage() {
                   </div>
                   
                   <div className="mt-4 flex gap-2">
-                    <button 
+                    <button
                       onClick={() => handleAddToCart(product.id)}
-                      className="flex-1 bg-burgundy hover:bg-burgundy/90 text-white py-2 rounded transition-colors duration-300"
+                      className="flex-1 bg-forest hover:bg-forest/90 text-mist py-2 rounded transition-colors duration-300"
                     >
                       Add to Cart
                     </button>
@@ -249,6 +331,8 @@ export default function StorePage() {
               <h3 className="text-2xl font-medium text-gray-600">No products found</h3>
               <p className="text-gray-500 mt-2">Try changing your filters or check back later for new products.</p>
             </div>
+          )}
+        </>
           )}
         </div>
       </section>
