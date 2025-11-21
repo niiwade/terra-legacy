@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { FiHome, FiFileText, FiPackage, FiFolder, FiUsers, FiCalendar, FiStar, FiHelpCircle, FiBook, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
@@ -16,11 +16,7 @@ export default function AdminLayout({
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    checkSession();
-  }, []);
-
-  const checkSession = async () => {
+  const checkSession = useCallback(async () => {
     try {
       const res = await fetch('/api/admin/auth/session');
       const data = await res.json();
@@ -38,7 +34,11 @@ export default function AdminLayout({
     } finally {
       setLoading(false);
     }
-  };
+  }, [pathname, router]);
+
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
 
   const handleLogout = async () => {
     try {

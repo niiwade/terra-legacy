@@ -5,7 +5,7 @@ interface FrappeConfig {
   apiSecret?: string;
 }
 
-interface FrappeResponse<T = any> {
+interface FrappeResponse<T = unknown> {
   data: T;
   message?: string;
 }
@@ -124,10 +124,10 @@ class FrappeAPI {
   }
 
   // Course Management
-  async getCourses(filters?: Record<string, any>): Promise<Course[]> {
-    const queryParams = filters ? '?' + new URLSearchParams(filters).toString() : '';
+  async getCourses(filters?: Record<string, string | number | boolean>): Promise<Course[]> {
+    const queryParams = filters ? '?' + new URLSearchParams(filters as Record<string, string>).toString() : '';
     const response = await this.request(`/api/resource/LMS Course${queryParams}`);
-    return response.data;
+    return response.data as Course[];
   }
 
   async getCourse(courseId: string): Promise<Course> {
@@ -238,8 +238,8 @@ class FrappeAPI {
   async getCertificate(courseId: string, userId: string): Promise<Certificate | null> {
     try {
       const response = await this.request(`/api/resource/LMS Certificate?filters=[["course","=","${courseId}"],["member","=","${userId}"]]`);
-      return response.data[0] || null;
-    } catch (error) {
+      return (response.data as Certificate[])[0] || null;
+    } catch {
       return null;
     }
   }
@@ -278,7 +278,7 @@ class FrappeAPI {
   // Generic request method
   private async request(endpoint: string, options: {
     method?: string;
-    body?: any;
+    body?: Record<string, unknown>;
     headers?: Record<string, string>;
   } = {}): Promise<FrappeResponse> {
     const { method = 'GET', body, headers = {} } = options;

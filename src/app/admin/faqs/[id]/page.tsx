@@ -17,6 +17,7 @@ export default function AdminFAQEditorPage({ params }: { params: Promise<{ id: s
     question: '', answer: '', category: '', isActive: true, sortOrder: '0',
   });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (!isNew) fetchData(); }, [id, isNew]);
 
   const fetchData = async () => {

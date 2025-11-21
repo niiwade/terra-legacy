@@ -20,6 +20,7 @@ export default function AdminCourseEditorPage({ params }: { params: Promise<{ id
     enrollmentStatus: 'open', startDate: '',
   });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (!isNew) fetchData(); }, [id, isNew]);
 
   const fetchData = async () => {

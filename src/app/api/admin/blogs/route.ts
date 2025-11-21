@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db, blogs } from '@/lib/db';
 import { requireAdmin } from '@/lib/auth';
-import { eq, desc } from 'drizzle-orm';
+import { desc } from 'drizzle-orm';
 
 // GET all blogs
 export async function GET() {

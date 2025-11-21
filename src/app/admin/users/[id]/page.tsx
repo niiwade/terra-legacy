@@ -27,6 +27,7 @@ export default function AdminUserEditorPage({ params }: { params: Promise<{ id: 
     if (!isNew) {
       fetchUser();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, isNew]);
 
   const fetchUser = async () => {

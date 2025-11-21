@@ -31,6 +31,7 @@ export default function AdminBlogEditorPage({ params }: { params: Promise<{ id: 
     if (!isNew) {
       fetchBlog();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, isNew]);
 
   const fetchCategories = async () => {

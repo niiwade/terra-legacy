@@ -30,6 +30,7 @@ export default function AdminEventEditorPage({ params }: { params: Promise<{ id:
 
   useEffect(() => {
     if (!isNew) fetchEvent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, isNew]);
 
   const fetchEvent = async () => {

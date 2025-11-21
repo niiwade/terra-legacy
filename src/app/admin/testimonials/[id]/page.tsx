@@ -18,6 +18,7 @@ export default function AdminTestimonialEditorPage({ params }: { params: Promise
     authorName: '', authorRole: '', authorImage: '', content: '', rating: '5', category: '', isActive: true, sortOrder: '0',
   });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (!isNew) fetchData(); }, [id, isNew]);
 
   const fetchData = async () => {

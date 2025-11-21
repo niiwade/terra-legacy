@@ -12,11 +12,15 @@ export async function GET(request: NextRequest) {
 
     switch (type) {
       case 'products': {
-        let query = db.select().from(products).where(eq(products.isActive, true));
-        if (featured) {
-          query = query.where(and(eq(products.isActive, true), eq(products.isFeatured, true))) as typeof query;
-        }
-        const data = await query.orderBy(desc(products.createdAt)).limit(limit);
+        const whereCondition = featured
+          ? and(eq(products.isActive, true), eq(products.isFeatured, true))
+          : eq(products.isActive, true);
+        const data = await db
+          .select()
+          .from(products)
+          .where(whereCondition)
+          .orderBy(desc(products.createdAt))
+          .limit(limit);
         return NextResponse.json({ data });
       }
 
@@ -31,21 +35,15 @@ export async function GET(request: NextRequest) {
       }
 
       case 'events': {
-        let query = db.select().from(events).where(
-          and(
-            eq(events.isActive, true),
-            gte(events.date, new Date())
-          )
-        );
-        if (featured) {
-          query = query.where(
-            and(
-              eq(events.isActive, true),
-              eq(events.isFeatured, true)
-            )
-          ) as typeof query;
-        }
-        const data = await query.orderBy(events.date).limit(limit);
+        const whereCondition = featured
+          ? and(eq(events.isActive, true), eq(events.isFeatured, true), gte(events.date, new Date()))
+          : and(eq(events.isActive, true), gte(events.date, new Date()));
+        const data = await db
+          .select()
+          .from(events)
+          .where(whereCondition)
+          .orderBy(events.date)
+          .limit(limit);
         return NextResponse.json({ data });
       }
 
@@ -70,20 +68,28 @@ export async function GET(request: NextRequest) {
       }
 
       case 'courses': {
-        let query = db.select().from(courses).where(eq(courses.isActive, true));
-        if (featured) {
-          query = query.where(and(eq(courses.isActive, true), eq(courses.isFeatured, true))) as typeof query;
-        }
-        const data = await query.orderBy(desc(courses.createdAt)).limit(limit);
+        const whereCondition = featured
+          ? and(eq(courses.isActive, true), eq(courses.isFeatured, true))
+          : eq(courses.isActive, true);
+        const data = await db
+          .select()
+          .from(courses)
+          .where(whereCondition)
+          .orderBy(desc(courses.createdAt))
+          .limit(limit);
         return NextResponse.json({ data });
       }
 
       case 'marketplace': {
-        let query = db.select().from(marketplaceListings).where(eq(marketplaceListings.isActive, true));
-        if (featured) {
-          query = query.where(and(eq(marketplaceListings.isActive, true), eq(marketplaceListings.isFeatured, true))) as typeof query;
-        }
-        const data = await query.orderBy(desc(marketplaceListings.createdAt)).limit(limit);
+        const whereCondition = featured
+          ? and(eq(marketplaceListings.isActive, true), eq(marketplaceListings.isFeatured, true))
+          : eq(marketplaceListings.isActive, true);
+        const data = await db
+          .select()
+          .from(marketplaceListings)
+          .where(whereCondition)
+          .orderBy(desc(marketplaceListings.createdAt))
+          .limit(limit);
         return NextResponse.json({ data });
       }
 
@@ -108,11 +114,9 @@ export async function GET(request: NextRequest) {
 
       case 'settings': {
         const group = searchParams.get('group');
-        let query = db.select().from(siteSettings);
-        if (group) {
-          query = query.where(eq(siteSettings.group, group)) as typeof query;
-        }
-        const data = await query;
+        const data = group
+          ? await db.select().from(siteSettings).where(eq(siteSettings.group, group))
+          : await db.select().from(siteSettings);
         // Convert to key-value object
         const settings: Record<string, string> = {};
         data.forEach(s => {

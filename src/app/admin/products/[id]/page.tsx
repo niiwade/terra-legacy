@@ -36,6 +36,7 @@ export default function AdminProductEditorPage({ params }: { params: Promise<{ i
     if (!isNew) {
       fetchProduct();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, isNew]);
 
   const fetchCategories = async () => {

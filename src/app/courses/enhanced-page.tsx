@@ -29,10 +29,18 @@ const StarRating = ({ rating }: { rating: number }) => {
   );
 };
 
+// Membership type
+interface Membership {
+  type: 'free' | 'gold' | 'platinum';
+  features: {
+    coursesIncluded: number;
+  };
+}
+
 // Course access badge component
-const CourseAccessBadge = ({ course, userMembership }: { 
-  course: Course; 
-  userMembership: any; 
+const CourseAccessBadge = ({ course, userMembership }: {
+  course: Course;
+  userMembership: Membership | null;
 }) => {
   const canAccess = checkCourseAccess(course, userMembership);
   
@@ -61,7 +69,7 @@ const CourseAccessBadge = ({ course, userMembership }: {
 };
 
 // Check if user can access course based on membership
-const checkCourseAccess = (course: Course, membership: any): boolean => {
+const checkCourseAccess = (course: Course, membership: Membership | null): boolean => {
   if (course.price === 0) return true; // Free courses
   if (!membership) return false;
   
@@ -83,7 +91,7 @@ export default function EnhancedCoursesPage() {
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [sortOption, setSortOption] = useState('featured');
   
-  const { user, isAuthenticated, membership } = useAuth();
+  const { isAuthenticated, membership } = useAuth();
   const { data: courses, loading, error } = useCourses();
   
   // Initialize AOS animation library

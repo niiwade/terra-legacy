@@ -1,29 +1,36 @@
 // Custom React hooks for Frappe LMS API integration
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { frappeAPI, Course, Enrollment, User, Quiz, Certificate } from '@/lib/frappe-api';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { frappeAPI, User } from '@/lib/frappe-api';
 
 // Generic hook for API calls with loading states
 function useAPICall<T>(
   apiCall: () => Promise<T>,
-  dependencies: any[] = []
+  dependencies: unknown[] = []
 ) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const apiCallRef = useRef(apiCall);
+
+  // Update ref when apiCall changes
+  useEffect(() => {
+    apiCallRef.current = apiCall;
+  }, [apiCall]);
 
   const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      const result = await apiCall();
+      const result = await apiCallRef.current();
       setData(result);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 
   useEffect(() => {
@@ -48,7 +55,7 @@ export function useAuth() {
       const currentUser = await frappeAPI.getCurrentUser();
       setUser(currentUser);
       setIsAuthenticated(true);
-    } catch (error) {
+    } catch {
       setUser(null);
       setIsAuthenticated(false);
     } finally {
@@ -90,7 +97,7 @@ export function useAuth() {
 }
 
 // Course management hooks
-export function useCourses(filters?: Record<string, any>) {
+export function useCourses(filters?: Record<string, string | number | boolean>) {
   return useAPICall(() => frappeAPI.getCourses(filters), [filters]);
 }
 

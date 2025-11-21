@@ -29,6 +29,7 @@ export default function AdminCategoryEditorPage({ params }: { params: Promise<{ 
     if (!isNew) {
       fetchCategory();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, isNew]);
 
   const fetchCategories = async () => {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db, adminUsers } from '@/lib/db';
 import { requireAdmin, hashPassword } from '@/lib/auth';
-import { desc } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 
 // GET all admin users
 export async function GET() {
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     const existing = await db
       .select()
       .from(adminUsers)
-      .where(require('drizzle-orm').eq(adminUsers.email, data.email))
+      .where(eq(adminUsers.email, data.email))
       .limit(1);
 
     if (existing.length > 0) {
