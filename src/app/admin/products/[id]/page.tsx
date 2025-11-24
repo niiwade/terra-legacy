@@ -15,6 +15,7 @@ export default function AdminProductEditorPage({ params }: { params: Promise<{ i
   const [saving, setSaving] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingFile, setUploadingFile] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -27,6 +28,7 @@ export default function AdminProductEditorPage({ params }: { params: Promise<{ i
     fileUrl: '',
     productType: 'digital',
     stockQuantity: '0',
+    isFree: false,
     isActive: true,
     isFeatured: false,
   });
@@ -66,6 +68,7 @@ export default function AdminProductEditorPage({ params }: { params: Promise<{ i
           fileUrl: data.product.fileUrl || '',
           productType: data.product.productType || 'digital',
           stockQuantity: data.product.stockQuantity?.toString() || '0',
+          isFree: data.product.isFree || false,
           isActive: data.product.isActive !== false,
           isFeatured: data.product.isFeatured || false,
         });
@@ -103,6 +106,41 @@ export default function AdminProductEditorPage({ params }: { params: Promise<{ i
       alert('Failed to upload image');
     } finally {
       setUploadingImage(false);
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type (PDFs only)
+    if (file.type !== 'application/pdf') {
+      alert('Please upload a PDF file');
+      return;
+    }
+
+    setUploadingFile(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', 'products/files');
+
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (data.file) {
+        setFormData(prev => ({ ...prev, fileUrl: data.file.url }));
+      } else {
+        alert('Failed to upload file');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      alert('Failed to upload file');
+    } finally {
+      setUploadingFile(false);
     }
   };
 
@@ -211,16 +249,17 @@ export default function AdminProductEditorPage({ params }: { params: Promise<{ i
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Price *
+                Price {!formData.isFree && '*'}
               </label>
               <input
                 type="number"
                 step="0.01"
-                required
+                required={!formData.isFree}
+                disabled={formData.isFree}
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#3c4b33] focus:border-[#3c4b33]"
-                placeholder="0.00"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#3c4b33] focus:border-[#3c4b33] disabled:bg-gray-100 disabled:cursor-not-allowed"
+                placeholder={formData.isFree ? "Free" : "0.00"}
               />
             </div>
 
@@ -231,10 +270,11 @@ export default function AdminProductEditorPage({ params }: { params: Promise<{ i
               <input
                 type="number"
                 step="0.01"
+                disabled={formData.isFree}
                 value={formData.salePrice}
                 onChange={(e) => setFormData({ ...formData, salePrice: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#3c4b33] focus:border-[#3c4b33]"
-                placeholder="0.00"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#3c4b33] focus:border-[#3c4b33] disabled:bg-gray-100 disabled:cursor-not-allowed"
+                placeholder={formData.isFree ? "N/A" : "0.00"}
               />
             </div>
           </div>
@@ -274,15 +314,41 @@ export default function AdminProductEditorPage({ params }: { params: Promise<{ i
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Digital File URL
+              Digital File (PDF)
             </label>
-            <input
-              type="text"
-              value={formData.fileUrl}
-              onChange={(e) => setFormData({ ...formData, fileUrl: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#3c4b33] focus:border-[#3c4b33]"
-              placeholder="URL to downloadable file"
-            />
+            <div className="flex items-center space-x-4">
+              <input
+                type="text"
+                value={formData.fileUrl}
+                onChange={(e) => setFormData({ ...formData, fileUrl: e.target.value })}
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#3c4b33] focus:border-[#3c4b33]"
+                placeholder="PDF file URL or upload below"
+              />
+              <label className="flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg cursor-pointer hover:bg-gray-200 transition-colors">
+                <FiUpload className="w-4 h-4 mr-2" />
+                {uploadingFile ? 'Uploading...' : 'Upload PDF'}
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  disabled={uploadingFile}
+                />
+              </label>
+            </div>
+            {formData.fileUrl && (
+              <div className="mt-2 flex items-center text-sm text-gray-600">
+                <span className="font-medium mr-2">Current file:</span>
+                <a
+                  href={formData.fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#3c4b33] hover:underline truncate max-w-md"
+                >
+                  {formData.fileUrl}
+                </a>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -332,6 +398,16 @@ export default function AdminProductEditorPage({ params }: { params: Promise<{ i
           </div>
 
           <div className="flex items-center space-x-6">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={formData.isFree}
+                onChange={(e) => setFormData({ ...formData, isFree: e.target.checked, price: e.target.checked ? '0' : formData.price })}
+                className="rounded border-gray-300 text-[#3c4b33] focus:ring-[#3c4b33]"
+              />
+              <span className="ml-2 text-sm text-gray-700">Free Product</span>
+            </label>
+
             <label className="flex items-center">
               <input
                 type="checkbox"

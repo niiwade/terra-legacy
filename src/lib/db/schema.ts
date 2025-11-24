@@ -40,6 +40,7 @@ export const products = pgTable('products', {
   fileUrl: text('file_url'), // For digital products (PDFs, etc.)
   productType: text('product_type').notNull().default('digital'), // digital, physical
   stockQuantity: integer('stock_quantity').default(0),
+  isFree: boolean('is_free').notNull().default(false), // Free products
   isActive: boolean('is_active').notNull().default(true),
   isFeatured: boolean('is_featured').notNull().default(false),
   metadata: text('metadata'), // JSON for additional product data

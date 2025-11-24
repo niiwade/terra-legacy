@@ -94,70 +94,73 @@ export default function AdminLayout({
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between h-16 px-4 border-b border-[#4a5d3f]">
-          <Link href="/admin/dashboard" className="text-xl font-bold">
-            Terra Admin
-          </Link>
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-1 rounded hover:bg-[#4a5d3f]"
-          >
-            <FiX className="w-5 h-5" />
-          </button>
-        </div>
-
-        <nav className="mt-6 px-3">
-          {navigation.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex items-center px-4 py-3 mb-1 rounded-lg transition-colors ${
-                  isActive
-                    ? 'bg-[#4a5d3f] text-white'
-                    : 'text-gray-300 hover:bg-[#4a5d3f] hover:text-white'
-                }`}
-              >
-                <item.icon className="w-5 h-5 mr-3" />
-                {item.name}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-[#4a5d3f]">
-          <div className="mb-3 px-4">
-            <p className="text-sm font-medium">{user.name}</p>
-            <p className="text-xs text-gray-400">{user.email}</p>
+        <div className="flex flex-col h-full">
+          <div className="flex items-center justify-between h-16 px-4 border-b border-[#4a5d3f] flex-shrink-0">
+            <Link href="/admin/dashboard" className="text-xl font-bold">
+              Terra Admin
+            </Link>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="lg:hidden p-1 rounded hover:bg-[#4a5d3f]"
+            >
+              <FiX className="w-5 h-5" />
+            </button>
           </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-[#4a5d3f] hover:text-white rounded-lg transition-colors"
-          >
-            <FiLogOut className="w-5 h-5 mr-3" />
-            Logout
-          </button>
+
+          <nav className="flex-1 overflow-y-auto mt-6 px-3 pb-4">
+            {navigation.map((item) => {
+              const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setSidebarOpen(false)}
+                  className={`flex items-center px-4 py-3 mb-1 rounded-lg transition-colors ${
+                    isActive
+                      ? 'bg-[#4a5d3f] text-white'
+                      : 'text-gray-300 hover:bg-[#4a5d3f] hover:text-white'
+                  }`}
+                >
+                  <item.icon className="w-5 h-5 mr-3 flex-shrink-0" />
+                  <span className="truncate">{item.name}</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="flex-shrink-0 p-4 border-t border-[#4a5d3f]">
+            <div className="mb-3 px-4">
+              <p className="text-sm font-medium truncate">{user.name}</p>
+              <p className="text-xs text-gray-400 truncate">{user.email}</p>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-[#4a5d3f] hover:text-white rounded-lg transition-colors"
+            >
+              <FiLogOut className="w-5 h-5 mr-3 flex-shrink-0" />
+              <span className="truncate">Logout</span>
+            </button>
+          </div>
         </div>
       </aside>
 
       {/* Main content */}
       <div className="lg:pl-64">
         {/* Top bar */}
-        <header className="sticky top-0 z-30 bg-white shadow-sm h-16 flex items-center px-4">
+        <header className="sticky top-0 z-30 bg-white shadow-sm h-16 flex items-center px-4 sm:px-6">
           <button
             onClick={() => setSidebarOpen(true)}
             className="lg:hidden p-2 rounded-md hover:bg-gray-100"
           >
             <FiMenu className="w-6 h-6" />
           </button>
-          <h1 className="ml-4 text-lg font-semibold text-gray-900">
+          <h1 className="ml-2 lg:ml-4 text-base sm:text-lg font-semibold text-gray-900 truncate">
             {navigation.find(item => pathname === item.href || pathname.startsWith(item.href + '/'))?.name || 'Admin'}
           </h1>
         </header>
 
         {/* Page content */}
-        <main className="p-6">
+        <main className="p-4 sm:p-6 lg:p-8">
           {children}
         </main>
       </div>

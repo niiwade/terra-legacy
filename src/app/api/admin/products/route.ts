@@ -49,6 +49,7 @@ export async function POST(request: NextRequest) {
       fileUrl: data.fileUrl,
       productType: data.productType || 'digital',
       stockQuantity: data.stockQuantity || 0,
+      isFree: data.isFree || false,
       isActive: data.isActive !== false,
       isFeatured: data.isFeatured || false,
       metadata: data.metadata ? JSON.stringify(data.metadata) : null,

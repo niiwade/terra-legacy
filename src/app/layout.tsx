@@ -3,9 +3,7 @@ import './globals.css';
 import '@/styles/animations.css';
 import 'aos/dist/aos.css';
 import { Montserrat, Manrope } from 'next/font/google';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import TawkToChat from "@/components/TawkToChat";
+import ConditionalLayout from '@/components/ConditionalLayout';
 import AOSInitializer from '@/components/AOSInitializer';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from '@/contexts/AuthContext';
@@ -38,12 +36,9 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             <AOSInitializer />
-            <Header />
-            <main className="min-h-screen">
+            <ConditionalLayout>
               {children}
-            </main>
-            <Footer />
-            <TawkToChat />
+            </ConditionalLayout>
           </CartProvider>
         </AuthProvider>
       </body>
